@@ -2,16 +2,16 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-       <?php include('block/head/head.php'); ?>
-      <link rel="stylesheet" type="text/css" href="css/doc.css">
+       <?php include('includes/layout/head.php'); ?>
+      <link rel="stylesheet" type="text/css" href="assets/css/doc.css">
     </head>
     <body>
-        <?php include('block/body/header.php'); ?>
+        <?php include('includes/layout/header.php'); ?>
 
         <div id='contenu'>
-            <?php include('doc/doc.html'); ?>
+            <?php include('includes/layout/doc.html'); ?>
         </div>
         
-        <?php include('block/body/footer.php'); ?>
+        <?php include('includes/layout/footer.php'); ?>
     </body>
 </html>

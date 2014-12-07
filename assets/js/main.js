@@ -135,7 +135,7 @@ function init(){
 	var wallGeometry = new THREE.PlaneGeometry(600, 420,1,1);
 	
 	/* B32 */
-	var textureB32 = THREE.ImageUtils.loadTexture('3D/js/texture/B32.jpg');
+	var textureB32 = THREE.ImageUtils.loadTexture('assets/images/B32.jpg');
 	textureB32.wrapS = textureB32.wrapT = THREE.RepeatWrapping;
 	var B32Material = new THREE.MeshBasicMaterial({map: textureB32 , side: THREE.DoubleSide});
 	var B32Geometry = new THREE.PlaneGeometry(1800, 420, 1, 1);
@@ -144,7 +144,7 @@ function init(){
 	scene.add(B32);
 	
 	/* CAFET */
-	var textureCafet = THREE.ImageUtils.loadTexture('3D/js/texture/Cafet.jpg');
+	var textureCafet = THREE.ImageUtils.loadTexture('assets/images/Cafet.jpg');
 	textureCafet.wrapS = textureCafet.wrapT = THREE.RepeatWrapping;
 	var CafetMaterial = new THREE.MeshBasicMaterial({map: textureCafet , side: THREE.DoubleSide});
 	var CafetGeometry = new THREE.PlaneGeometry(600, 420,1,1);
@@ -154,7 +154,7 @@ function init(){
 	scene.add(Cafet);
 	
 	/* GTE */
-	var textureGTE = THREE.ImageUtils.loadTexture('3D/js/texture/GTE.jpg');
+	var textureGTE = THREE.ImageUtils.loadTexture('assets/images/GTE.jpg');
 	textureGTE.wrapS = textureGTE.wrapT = THREE.RepeatWrapping;
 	var GTEMaterial = new THREE.MeshBasicMaterial({map: textureGTE , side: THREE.DoubleSide});
 	var GTEGeometry = new THREE.PlaneGeometry(600, 420,1,1);

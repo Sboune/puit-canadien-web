@@ -1,4 +1,4 @@
-<form action= "highcharts/graph.php" method="GET">
+<form action= "graph.php" method="GET">
 
 	<br />
 	<br />
@@ -12,8 +12,8 @@
 	<br />
 	<br />
 	
-	<script src="scripts/jquery/jquery-1.9.1.js"></script>
-	<script src="scripts/jquery/jquery-ui.js"></script>
+	<script src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+	<script src="assets/vendor/jquery/jquery-ui.js"></script>
 	<label>Date de début</label><br/>
 	<script>
 		$(function() {

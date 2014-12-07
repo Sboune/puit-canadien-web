@@ -1,8 +1,8 @@
-<?php require_once('../admin/ConnexionBD.php'); ?>
+<?php require_once(__DIR__.'/../../admin/ConnexionBD.php'); ?>
 
-<script type='text/javascript' src='jquery.min.js'></script>
-<script type="text/javascript" src="highcharts.js" ></script>
-<script type="text/javascript" src="exporting.js" ></script>
+<script type='text/javascript' src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="assets/vendor/highcharts/highcharts.js" ></script>
+<script type="text/javascript" src="assets/vendor/highcharts/exporting.js" ></script>
 
 <?php
 Function generer_Graphique($dateDeb , $dateFin , $sondes, $conteneur){

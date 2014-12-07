@@ -1,4 +1,4 @@
-<?php include('block/body/header.php');?>
+<?php include('includes/layout/header.php');?>
 
 <?php
 	$pass = '0000';

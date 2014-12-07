@@ -5,16 +5,16 @@
 <html lang="fr">
 	<head>
 		<?php
-			include('block/head/head.php');
+			include('includes/layout/head.php');
 			include('admin/GestionBase.php');
 		?>
 	
-		<link rel='stylesheet' type='text/css' href='css/administration.css' />
-		<link rel="stylesheet" href="css/jquery-ui.css" />
+		<link rel='stylesheet' type='text/css' href='assets/css/administration.css' />
+		<link rel="stylesheet" href="assets/vendor/jquery/jquery-ui.css" />
 	
-		<script type="text/javascript" src="scripts/jquery/jquery-1.9.1.min.js"></script>
-		<script type="text/javascript" src="scripts/jquery/jquery-ui.js"></script>
-		<script type="text/javascript" src="scripts/jquery/jquery-ui-i18n.min.js"></script>
+		<script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="assets/vendor/jquery/jquery-ui.js"></script>
+		<script type="text/javascript" src="assets/vendor/jquery/jquery-ui-i18n.min.js"></script>
 		<script type="text/javascript" src="admin/menu.js"></script>
 
 		<script type="text/javascript">
@@ -89,7 +89,7 @@
 	<body>
 		<?php include("admin/pass.php"); ?> <!-- Verifie le mot de passe de l'admin -->
 		<div id="centrer">
-			<?php include('block/body/header.php'); ?>
+			<?php include('includes/layout/header.php'); ?>
 			<div id='contenu'>
 				<div id="tabs">
 					<ul>
@@ -344,6 +344,6 @@
 				</div> <!--tabs-->
 			</div> <!--contenu-->
 		</div> <!--centrer-->
-		<?php include('block/body/footer.php'); ?>
+		<?php include('includes/layout/footer.php'); ?>
 	</body>
 </html>

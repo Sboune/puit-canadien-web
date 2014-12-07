@@ -3,16 +3,16 @@
 <html lang="fr">
     <head>
         <?php
-            include('block/head/head.php');
+            include('includes/layout/head.php');
             include("admin/ConnexionBD.php");
         ?>
 
-        <link rel='stylesheet' type='text/css' href='css/graphique.css' />
-        <link rel="stylesheet" href="css/jquery-ui.css" />
+        <link rel='stylesheet' type='text/css' href='assets/css/graphique.css' />
+        <link rel="stylesheet" href="assets/vendor/jquery/jquery-ui.css" />
         
-        <script src="scripts/jquery/jquery-1.9.1.min.js"></script>
-        <script src="scripts/jquery/jquery-ui.js"></script>
-        <script src="scripts/jquery/jquery-ui-i18n.min.js"></script>
+        <script src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
+        <script src="assets/vendor/jquery/jquery-ui.js"></script>
+        <script src="assets/vendor/jquery/jquery-ui-i18n.min.js"></script>
         <script type="text/javascript" src="admin/menu.js"></script>
         <script type="text/javascript">      
             $(document).ready(function () {    
@@ -24,7 +24,7 @@
     </head>
   
     <body>
-        <?php include('block/body/header.php');?>
+        <?php include('includes/layout/header.php');?>
 
         <div id='contenu'>
             <div id="tabs">
@@ -36,8 +36,8 @@
                 <div id="tabs-1">
                     <div id="ui">
                         <?php
-                            include('block/body/form.php');  // liste deroulante sondes selectionne
-                            include('3D/terrain.php');
+                            include('includes/layout/form.php');  // liste deroulante sondes selectionne
+                            include('terrain.php');
                         ?>
                     </div>
                 </div>
@@ -45,10 +45,10 @@
                     <!--<?php //include('scripts/highcharts/graph.php'); ?>-->
                 </div> 
                 <div id="tabs-3">
-                    <img src="data/sondes.png" alt="Positions des sondes" width="800px" height="400px"/>
+                    <img src="assets/images/sondes.png" alt="Positions des sondes" width="800px" height="400px"/>
                 </div> 
             </div>
         </div>
-        <?php include('block/body/footer.php');?>
+        <?php include('includes/layout/footer.php');?>
     </body>
 </html>

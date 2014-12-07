@@ -12,8 +12,8 @@
 	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 	<?php
-	require_once("dessiner_graph.php");
-	require_once("Exportation_Fichier.php");
+	require_once("includes/scripts/dessiner_graph.php");
+	require_once("includes/scripts/exportation_fichier.php");
 
 	if( !empty($_GET["datedeb"]) && !empty($_GET["datefin"]) && !empty($_GET["Sondes"]) ){
 
