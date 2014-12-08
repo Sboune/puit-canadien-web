@@ -1,8 +1,3 @@
-<?php
-	echo
-	'
-		<footer>
-			<p>Copyright : IUT département informatique 2013/2014</p>
-		</footer>
-	';
-?>
+<footer>
+	<p>Copyright : IUT département informatique 2013/2014</p>
+</footer>
