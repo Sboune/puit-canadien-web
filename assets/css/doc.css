@@ -1,75 +1,73 @@
-.part{
-	text-align: center;
-	color: #002F2F;
+.part {
+  text-align: center;
+  color: #002F2F;
 }
 
-.section{
-	margin-left: 40px;
-	color: #046380;
+.section {
+  margin-left: 40px;
+  color: #046380;
 }
 
-.subsection{
-	margin-left: 80px;
-	color: #7FC6BC;
+.subsection {
+  margin-left: 80px;
+  color: #7FC6BC;
 }
 
-a:link{
-	color:white;
-	text-decoration: none;
+a:link {
+  color:white;
+  text-decoration: none;
 }
 
-a:visited{
-	color:#800080;
+a:visited {
+  color:#800080;
 }
 
-.navaide{
-	display: block;
-	position: absolute;
-	right: 80%;
-	top: 20%
+.navaide {
+  display: block;
+  position: absolute;
+  right: 80%;
+  top: 20%
 }
 
-.aide{
-	position: absolute;
-	top: 30%;
+.aide {
+  position: absolute;
+  top: 30%;
 }
 
-.posph1{
-	position: absolute;
-	top: 13%;
+.posph1 {
+  position: absolute;
+  top: 13%;
 }
 
-.imggraph{
-	position: absolute;
-	top:10%;
-	right: 0%;
+.imggraph {
+  position: absolute;
+  top:10%;
+  right: 0%;
 }
 
-.possonde{
-	position: absolute;
-	left: 10%;
+.possonde {
+  position: absolute;
+  left: 10%;
 }
 
-.admin{
-	position: absolute;
-	top: 70%;
-	right: 0%;
+.admin {
+  position: absolute;
+  top: 70%;
+  right: 0%;
 }
 
-ul ul {display: none;}
-li:hover ul.niveau2, li li:hover ul.niveau3 {display:block;}
+ul ul { display: none; }
+li:hover ul.niveau2, li li:hover ul.niveau3 { display:block; }
 
-.rectangle{
-	width: 90%;
-	background-color: #046380;
+.rectangle {
+  width: 90%;
+  background-color: #046380;
 }
 
-#menuaide a:hover
-{
-	text-shadow: rgba(191,247,127,0.9) 0px 0px 4px ;
+#menuaide a:hover {
+  text-shadow: rgba(191,247,127,0.9) 0px 0px 4px ;
 }
 
-a:visited
-{
-	color: white;
+a:visited {
+  color: white;
 }

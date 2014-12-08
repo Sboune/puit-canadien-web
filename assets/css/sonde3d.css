@@ -1,8 +1,7 @@
-#container 
-{
-	font-family: Monospace;
-	font-weight: bold;
-	background-color: #ccccff; /* couleur du ciel*/
-	margin: 0px;
-	overflow: hidden;
+#container {
+  font-family: Monospace;
+  font-weight: bold;
+  background-color: #ccccff; /* couleur du ciel*/
+  margin: 0px;
+  overflow: hidden;
 }

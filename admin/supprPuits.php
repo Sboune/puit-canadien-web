@@ -1,8 +1,7 @@
 <?php 
-	include('GestionBase.php');
+  include('GestionBase.php');
 
-	suppressionPuits($_POST['nom']);
+  suppressionPuits($_POST['nom']);
 
-	header("Location: ../administration.php");
-
- ?>
+  header("Location: ../administration.php");
+?>

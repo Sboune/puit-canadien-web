@@ -16,12 +16,12 @@
           echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,255); </script>\n";
         else
           echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,0); </script>\n";
-      }	
+      } 
       elseif($nom[0] == 'B')
         echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,255,0); </script>\n";
-      elseif($nom[0] == 'C')	
+      elseif($nom[0] == 'C')  
         echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,255); </script>\n";
-      elseif($nom[0] == 'D')	
+      elseif($nom[0] == 'D')  
         echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,255); </script>\n";
       elseif($nom[0] == 'E')
         echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",205,85,0); </script>\n";
@@ -34,5 +34,5 @@
       else
         echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,0); </script>\n";
     }
-  }	
+  } 
 ?>

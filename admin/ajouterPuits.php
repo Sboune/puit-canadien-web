@@ -1,7 +1,7 @@
 <?php  
-	include('GestionBase.php');
+  include('GestionBase.php');
 
-	AjouterPuits($_POST['nom']);
+  AjouterPuits($_POST['nom']);
 
-	header("Location: ../administration.php");
+  header("Location: ../administration.php");
 ?>
