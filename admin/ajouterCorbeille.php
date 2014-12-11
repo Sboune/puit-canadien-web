@@ -1,7 +1,7 @@
 <?php  
-	include('GestionBase.php');
+  include('GestionBase.php');
 
-	AjouterCorbeille($_POST['nom'],$_POST['posx'],$_POST['posz']);
+  AjouterCorbeille($_POST['nom'],$_POST['posx'],$_POST['posz']);
 
-	header("Location: ../administration.php");
+  header("Location: ../administration.php");
 ?>

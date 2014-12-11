@@ -1,7 +1,7 @@
 <?php 
-	include('GestionBase.php');
+  include('GestionBase.php');
 
-	suppressionCorbeille($_POST['id']);
+  suppressionCorbeille($_POST['id']);
 
-	header("Location: ../administration.php"); 
+  header("Location: ../administration.php"); 
 ?>
