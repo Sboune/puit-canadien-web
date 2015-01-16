@@ -6,14 +6,9 @@
 /* Headings
    ========================================================================== */
 
-h1,.f1 { font-size: 64px; }
-h2,.f2 { font-size: 48px; }
-h3,.f3 { font-size: 32px; }
-h4,.f4 { font-size: 24px; }
-h5,.f5 { font-size: 20px; }
-h6,.f6 { font-size: 16px; }
-
-
+h6 {
+  font-family: $font-family-Medium;
+}
 
 /* ==========================================================================
    OBJECTS
@@ -23,11 +18,21 @@ h6,.f6 { font-size: 16px; }
 /* Wrappers
    ========================================================================== */
 
+.boxes {
+  padding-top: 6em;
+
+  section {
+    margin-bottom: 4rem;
+  }
+
+}
+
 
 
 /* ==========================================================================
    COMPONENTS
    - Page-head
+   - Page-content
    - Page-foot
    - Buttons
    ========================================================================== */
@@ -36,16 +41,179 @@ h6,.f6 { font-size: 16px; }
    ========================================================================== */
 
 /*------------------------------------*\
-    #BLOG-HEADER
+    #NAVBAR
 \*------------------------------------*/
 
-.blog-header {
-    margin-top: 60px;
-    text-align: center;
+.navbar {
+  display: block;
+  width: 100%;
+  height: 6.5rem;
+  position: fixed;
+  top: 0;
+  left: 0; 
+  background: #fff;
+  z-index: 99;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee; 
+}
+
+.navbar-list {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.navbar-item {
+  position: relative;
+  float: left;
+  margin-bottom: 0; 
+}
+
+.navbar-link {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: .1rem;
+  margin-left: 35px;
+  text-decoration: none;
+  line-height: 6.5rem;
+  color: #222; 
+}
+
+.navbar-title {
+  font-family: $font-family-bold;
+  font-size: 20px;
+  text-decoration: none;
+  line-height: 6.5rem;
+  color: #222;
+}
+
+/* Page-content
+   ========================================================================== */
+
+.section-header {
+  margin-bottom: .5rem;
+  margin-left: .5rem;
+}
+
+/*------------------------------------*\
+    #BOX
+\*------------------------------------*/
+
+.box {
+  padding: 2.5rem 0;
+  margin: 0 .2rem;
+  border: 1px solid $light-gray;
+  border-radius: $global-radius;
+}
+
+.box-section {
+  padding: 0 3rem;
+
+  b {
+    font-family: $font-family-Medium;
+    font-weight: normal;
+  }
+}
+
+.box-section #chart {
+  margin-left: -2rem;
+}
+
+/*------------------------------------*\
+    #FORM
+\*------------------------------------*/
+
+form label {
+  font-weight: normal;
+}
+
+@media (min-width: $larger-than-desktop) {
+  form label {
+    display: inline;
+  }
+}
+
+/*------------------------------------*\
+    #C3
+\*------------------------------------*/
+
+.c3 svg {
+  font-family: $font-family;
+  font-size: 12px;
+}
+
+.c3-tooltip tr {
+  border:1px solid #CCC;
+}
+
+.c3-tooltip th {
+  background-color: #aaa;
+  font-size:14px;
+  padding:2px 5px;
+  text-align:left;
+  color:#FFF;
+}
+
+.c3-tooltip td {
+  font-size:13px;
+  padding: 3px 6px;
+  background-color:#fff;
+  border-left:1px dotted #999;
+}
+
+.c3-tooltip td > span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+}
+
+.c3-tooltip td.value{
+  text-align: right;
+}
+
+/*------------------------------------*\
+    #TABLE
+\*------------------------------------*/
+
+th {
+  font-family: $font-family-Medium;
+  font-weight: normal;
 }
 
 /* Page-foot
    ========================================================================== */
+
+/*------------------------------------*\
+    #FOOTER-BAR
+\*------------------------------------*/
+.footer-bar {
+  display: block;
+  width: 100%;
+  height: 6.5rem;
+  bottom: 0;
+  background: #282825;
+  z-index: 99;
+  text-align: center;
+  color: #888;
+}
+
+.footer-list {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.footer-item {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.footer-link {
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 6.5rem;
+  color: #adadae; 
+}
 
 /* Buttons
    ========================================================================== */

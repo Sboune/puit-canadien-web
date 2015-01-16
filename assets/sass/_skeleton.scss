@@ -49,49 +49,65 @@
 
 /* For devices larger than 550px */
 @media (min-width: 550px) {
-  .container .column,
-  .container .columns {
-    margin-left: $column-margin;
-    padding: $column-padding;
-  }
+  .container {
+    width: 80%; }
+  .column,
+  .columns {
+    margin-left: 4%; }
+  .column:first-child,
+  .columns:first-child {
+    margin-left: 0; }
 
-  .container .one.column,
-  .container .one.columns          { width: $column-width * 1 - ($column-margin);  }
-  .container .two.columns          { width: $column-width * 2 - ($column-margin);  }
-  .container .three.columns        { width: $column-width * 3 - ($column-margin);  }
-  .container .four.columns         { width: $column-width * 4 - ($column-margin);  }
-  .container .five.columns         { width: $column-width * 5 - ($column-margin);  }
-  .container .six.columns          { width: $column-width * 6 - ($column-margin);  }
-  .container .seven.columns        { width: $column-width * 7 - ($column-margin);  }
-  .container .eight.columns        { width: $column-width * 8 - ($column-margin);  }
-  .container .nine.columns         { width: $column-width * 9 - ($column-margin);  }
-  .container .ten.columns          { width: $column-width * 10 - ($column-margin); }
-  .container .eleven.columns       { width: $column-width * 11 - ($column-margin); }
-  .container .twelve.columns       { width: 100%; margin-left: 0; }
+  .one.column,
+  .one.columns                    { width: 4.66666666667%; }
+  .two.columns                    { width: 13.3333333333%; }
+  .three.columns                  { width: 22%;            }
+  .four.columns                   { width: 30.6666666667%; }
+  .five.columns                   { width: 39.3333333333%; }
+  .six.columns                    { width: 48%;            }
+  .seven.columns                  { width: 56.6666666667%; }
+  .eight.columns                  { width: 65.3333333333%; }
+  .nine.columns                   { width: 74.0%;          }
+  .ten.columns                    { width: 82.6666666667%; }
+  .eleven.columns                 { width: 91.3333333333%; }
+  .twelve.columns                 { width: 100%; margin-left: 0; }
 
-  .container .one-third.column     { width: $column-width * 4 - ($column-margin );  }
-  .container .two-thirds.column    { width: $column-width * 8 - ($column-margin );  }
+  .one-third.column               { width: 30.6666666667%; }
+  .two-thirds.column              { width: 65.3333333333%; }
 
-  .container .one-half.column      { width: $column-width * 6 - ($column-margin );  }
+  .one-half.column                { width: 48%; }
 
-/* Offsets */
-  .container .offset-by-one.column,
-  .container .offset-by-one.columns       { margin-left: $column-width * 1 - ($column-margin);  }
-  .container .offset-by-two.column        { margin-left: $column-width * 2 - ($column-margin);  }
-  .container .offset-by-three.column      { margin-left: $column-width * 3 - ($column-margin);  }
-  .container .offset-by-four.column       { margin-left: $column-width * 4 - ($column-margin);  }
-  .container .offset-by-five.column       { margin-left: $column-width * 5 - ($column-margin);  }
-  .container .offset-by-six.column        { margin-left: $column-width * 6 - ($column-margin);  }
-  .container .offset-by-seven.column      { margin-left: $column-width * 7 - ($column-margin);  }
-  .container .offset-by-eight.column      { margin-left: $column-width * 8 - ($column-margin);  }
-  .container .offset-by-nine.column       { margin-left: $column-width * 9 - ($column-margin);  }
-  .container .offset-by-ten.column        { margin-left: $column-width * 10 - ($column-margin); }
-  .container .offset-by-eleven.column     { margin-left: $column-width * 11 - ($column-margin); }
+  /* Offsets */
+  .offset-by-one.column,
+  .offset-by-one.columns          { margin-left: 8.66666666667%; }
+  .offset-by-two.column,
+  .offset-by-two.columns          { margin-left: 17.3333333333%; }
+  .offset-by-three.column,
+  .offset-by-three.columns        { margin-left: 26%;            }
+  .offset-by-four.column,
+  .offset-by-four.columns         { margin-left: 34.6666666667%; }
+  .offset-by-five.column,
+  .offset-by-five.columns         { margin-left: 43.3333333333%; }
+  .offset-by-six.column,
+  .offset-by-six.columns          { margin-left: 52%;            }
+  .offset-by-seven.column,
+  .offset-by-seven.columns        { margin-left: 60.6666666667%; }
+  .offset-by-eight.column,
+  .offset-by-eight.columns        { margin-left: 69.3333333333%; }
+  .offset-by-nine.column,
+  .offset-by-nine.columns         { margin-left: 78.0%;          }
+  .offset-by-ten.column,
+  .offset-by-ten.columns          { margin-left: 86.6666666667%; }
+  .offset-by-eleven.column,
+  .offset-by-eleven.columns       { margin-left: 95.3333333333%; }
 
-  .container .offset-by-one-third.column  { margin-left: $column-width * 4 - ($column-margin); }
-  .container .offset-by-two-thirds.column { margin-left: $column-width * 8 - ($column-margin); }
+  .offset-by-one-third.column,
+  .offset-by-one-third.columns    { margin-left: 34.6666666667%; }
+  .offset-by-two-thirds.column,
+  .offset-by-two-thirds.columns   { margin-left: 69.3333333333%; }
 
-  .container .offset-by-one-half.column   { margin-left: $column-width * 1 - ($column-margin); }
+  .offset-by-one-half.column,
+  .offset-by-one-half.columns     { margin-left: 52%; }
 
 }
 
@@ -106,7 +122,6 @@ html { font-size: 62.5%; }
 body {
   font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
   line-height: 1.6;
-  font-weight: 400;
   font-family: $font-family;
   color: $font-color;
 }
@@ -159,8 +174,7 @@ input[type="button"] {
   border-radius: $global-radius;
   color: $secondary-color;
   text-align: center;
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid $secondary-color;
@@ -216,7 +230,7 @@ input[type="password"],
 textarea,
 select {
   border: 1px solid $border-color;
-  height: 36px;
+  height: 38px;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   border-radius: $global-radius;
   box-shadow: none;
@@ -325,13 +339,13 @@ form,
 dl,
 figure,
 table,
-p,
 ul,
 ol,
 form {
   margin-bottom: 2.5rem; }
 p {
-  margin-top: 0; }
+  margin-top: 0;
+  margin-bottom: 1rem; }
 
 
 
@@ -347,6 +361,10 @@ p {
   float: right; }
 .u-pull-left {
   float: left; }
+.responsive-image {
+  max-width: 100%;
+  height: auto;
+}
 
 
 /* Misc

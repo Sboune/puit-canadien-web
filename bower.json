@@ -14,5 +14,8 @@
     "assets/vendor/",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "c3": "~0.4.8"
+  }
 }
