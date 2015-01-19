@@ -2,14 +2,14 @@
   require_once __DIR__.'/../../admin/ConnexionBD.php';
   
   global $connexion;
-  $stmt = $connexion -> prepare("SELECT * FROM Sonde");
+  $stmt = $connexion -> prepare("SELECT * FROM capteur");
   $stmt -> execute();
   
   foreach ($stmt as $q) {
-    $x = $q['posX'];
-    $y = $q['posY'];
-    $z = $q['posZ'];
-    $nom = $q['Nom'];
+    $x = $q['posXC'];
+    $y = $q['posYC'];
+    $z = $q['posZC'];
+    $nom = $q['nomD'];
     if($x != 0){
       if($nom[0] == 'A'){
         if($nom[1] == 'i')
