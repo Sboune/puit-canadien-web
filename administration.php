@@ -8,13 +8,14 @@
     include('admin/GestionBase.php');
   ?>
 
-  <link rel="stylesheet" type="text/css" href="assets/css/administration.css" />
-  <link rel="stylesheet" href="assets/vendor/jquery/jquery-ui.css" />
-
-  <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
+  <!-- POUR LA SELECTION A VOIR SI IL FAUT GARDER -->
+  <link rel="stylesheet" href="assets/vendor/jquery/jquery-ui.css">
+  <link rel="stylesheet" href="assets/vendor/jquery/jquery.ui.theme.css">
   <script type="text/javascript" src="assets/vendor/jquery/jquery-ui.js"></script>
-  <script type="text/javascript" src="assets/vendor/jquery/jquery-ui-i18n.min.js"></script>
-  <script type="text/javascript" src="admin/menu.js"></script>
+  <!-- !! -->
+
+  <script type="text/javascript" src="assets/vendor/tabs/js/easyResponsiveTabs.js"></script>
+  <link rel="stylesheet" href="assets/vendor/tabs/css/easy-responsive-tabs.css">
 
   <script type="text/javascript">
     $(document).ready(function () { 
@@ -23,10 +24,6 @@
         $( "#selectable2" ).selectable();
         $( "#selectable3" ).selectable();
       });
-
-    $(function() {
-      $("#tabs").tabs();
-    });
 
     $('#supprSonde').click(function () {
       $('#selectable .ui-widget-content.ui-selected').each(function(index) {
@@ -69,290 +66,232 @@
     ?>
     });
   </script>
-
-  <style>
-    #feedback { font-size: 0.8em; }
-    #selectable .ui-selecting { background: #FECA40; }
-    #selectable .ui-selected { background: #F39814; color: white; }
-    #selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-    
-    #selectable2 .ui-selecting { background: #FECA40; }
-    #selectable2 .ui-selected { background: #F39814; color: white; }
-    #selectable2 { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #selectable2 li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-    
-    #selectable3 .ui-selecting { background: #FECA40; }
-    #selectable3 .ui-selected { background: #F39814; color: white; }
-    #selectable3 { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #selectable3 li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
-  </style>
 </head>
 
 <body>
+  <?php include('includes/layout/header.php'); ?>
 
   <?php include("admin/pass.php"); ?> <!-- Verifie le mot de passe de l'admin -->
 
-  <div id="centrer">
-   <?php include('includes/layout/header.php'); ?>
+  <div class="container">
+  <div class="wrapper">
+  <h2>Administration</h2>
+    <?php
+    if($_SESSION['pass'] == false) {
+    ?>
 
-   <div id='contenu'>
-    <div id="tabs">
-      <ul>
-        <li><a href="#tabs-1">Ajouter une sonde</a></li>
-        <li><a href="#tabs-2">Ajouter une corbeille</a></li>
-        <li><a href="#tabs-3">Ajouter un puits</a></li>
-        <li><a href="#tabs-4">Supprimer une sonde</a></li>
-        <li><a href="#tabs-5">Supprimer une corbeille</a></li>
-        <li><a href="#tabs-6">Supprimer un puits</a></li>
-        <li><a href="#tabs-7">Importation ou exportation</a></li>
-        <li><a href="#tabs-8">Arduino</a></li>
+    <div class="login-box">
+      <p>Veuillez entrer le mot de passe !</p>
+      <form style="text-align: center" action="#" method="post">
+        <input type="password" name="pass" value=""/>   
+        <input type="submit" value="Valider"/>
+      </form>
+    </div>
+
+    <?php } else { ?>
+
+    <div id="parentTab">
+      <ul class="resp-tabs-list hor_1">
+        <li>Gérer sondes</li>
+        <li>Gérer dispositifs</li>
+        <li>Impoter/Exporter</li>
+        <li>Arduino</li>
       </ul>
+      <div class="resp-tabs-container hor_1">
+        <div>
+          <br>
+          <form action="admin/ajouterSonde.php" method="post">
+            <h6>Ajouter une sonde</h6>
+            <div class="row">
+              <div class="six columns">
+                <label for="nom">Nom de la sonde : </label>
+                <input type="text" class="u-full-width" name="nom" id="nom">
+              </div>
+              <div class="six columns">
+                <label for="relier">Dispositif parent : </label>
+                <select name="relier" class="u-full-width" id="sondeCorbeille"></select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="four columns">
+                <label for="niveau">Niveau (y): </label>
+                <select name="niveau" class="u-full-width">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2.5">2.5</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+              <div class="four columns">
+                <label for="posx">Position x :</label>
+                <input type="text" class="u-full-width" name="posx" id="posx">
+              </div>
+              <div class="four columns">
+                <label for="posz">Position z :</label>
+                <input type="text" class="u-full-width" name="posz" id="posz">
+              </div>
+              <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
+            </div>
+          </form>
+          <hr>
+          <h6>Supprimer des sondes</h6>
+          <div class="tabs-listeSondes">
+            <ul id="selectable">
+            <?php
+              $res = nomSonde();
+              while($data = $res->fetch(PDO::FETCH_ASSOC)) {
+                echo '<li class="ui-widget-content" data-userid="' . $data['Sonde_id'] . '">' . $data['Nom'] . '</li>';
+              }
+            ?>
+            </ul>
+          </div>
+          <button type="button" class="button-primary u-pull-right" id="supprSonde">Supprimer</button>
+          <div class="u-cf"></div>
+        </div>
+        <div>
+          <br>
+          <form action="#" method="post">
+            <h6>Ajouter un dispositif</h6>
+            <div class="row">
+              <div class="six columns">
+                <label for="nom">Nom du dispositif :</label>
+                <input type="text" class="u-full-width" name="nom" id="nom">
+              </div>
+              <div class="six columns">
+                <label for="type">Type du dispositif :</label>
+                <select name="type" class="u-full-width">
+                  <option value="corbeille">Corbeille</option>
+                  <option value="puit">Puit Canadien</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="twelve columns">
+                <label for="lieu">Lieu :</label>
+                <select name="lieu" class="u-full-width">
+                  <option value="devantGTE">Devant batiment GTE</option>
+                  <option value="cafeteria">À côté de la cafétéria</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="four columns">
+                <label for="posx">Position x :</label>
+                <input type="text" class="u-full-width" name="posx" id="posx">
+              </div>
+              <div class="four columns">
+                <label for="posy">Position y :</label>
+                <input type="text" class="u-full-width" name="posy" id="posy">
+              </div>
+              <div class="four columns">
+                <label for="posz">Position z :</label>
+                <input type="text" class="u-full-width" name="posz" id="posz">
+              </div>
+            </div>
+            <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
+          </form>
+          <hr>
+          <h6>Supprimer un dispositif</h6>
+          <p>Corbeilles : </p>
+          <div class="tabs-listeSondes">
+            <ul id="selectable2">
+              <?php
+                $res = nomCorbeille();
+                while($data = $res->fetch(PDO::FETCH_ASSOC)){
+                  echo '<li class="ui-widget-content" data-userid="' . $data['Corbeille_id'] . '">' . $data['Nom'] . '</li>';
+                }
+              ?>
+            </ul>
+          </div>
+          <button type="button" class="button-primary u-pull-right" id="supprCorbeille">Supprimer</button>
+          <div class="u-cf"></div>
+          <p>Puits canadien : </p>
+          <div class="tabs-listeSondes">
+            <ul id="selectable2">
+              <?php
+                $res = nomPuits();
+                while( $data = $res->fetch(PDO::FETCH_ASSOC) ){
+                  echo '<li class="ui-widget-content" data-userid=>'. $data['Nom_puits'] . '</li>';
+                }
+              ?>
+            </ul>
+          </div>
+          <button type="button" class="button-primary u-pull-right" id="supprCorbeille">Supprimer</button>
+          <div class="u-cf"></div>
+        </div>
+        <div>
+          <br>
+          <h6>Import d'un fichier .sql</h6>
+          <form name="import" enctype="multipart/form-data" action="admin/backupBase.php" method="post">
+            <div class="row">
+              <div class="twelve columns">
+                <label for="file">Fichier .sql:</label>
+                <input type="file" class="u-full-width" name="sql">
+              </div>
+            </div>
+            <input type="hidden" name="action" value="import">
+            <input type="hidden" name="MAX_FILE_SIZE" value="300000">
+            <input type="submit" class="button-primary u-pull-right" value="Valider">
+            <br>
+          </form>
+          <h6>Export de la base :</h6>
+          <form name="export" action="admin/backupBase.php" method="post">
+            <div class="row">
+              <div class="twelve columns">
+                <label for="filename">Nom du fichier :</label>
+                <input type="text" name="filename" class="u-full-width">
+              </div>
+            </div>
+            <input type="hidden" name="action" value="export">
+            <input type="submit" class="button-primary u-pull-right" value="Valider">
+          </form>
+          <div class="u-cf"></div>
+        </div>
+        <div>
+          <br>
+          <h6>Changement de la fréquence des saisies</h6>
+          <form name="chgFreq" action="admin/arduino.php" method="post">
+            <div class="row">
+              <div class="twelve columns">
+                <label for="freq">Fréquence (en ms):</label> 
+                <input type="text" name="freq" class="u-full-width" id="freq">
+              </div>
+            </div>
+            <input type="submit" class="button-primary u-pull-right" value="Valider">
+          </form>
+          <div class="u-cf"></div>
+        </div>
+      </div>
+    </div>
+    <?php } ?>
+    <div class="push"></div>
+    <div class="push"></div>
+  </div> <!-- wrapper -->
+  </div> <!-- container -->
 
-      <div id="tabs-1">
-        <form action="admin/ajouterSonde.php" method="post">     
-          <fieldset>
-            <legend>Ajouter une sonde</legend>
-            <table>
-              <tr>
-                <td>
-                  <label for="relier">Appartient à : </label>
-                </td>
-                <td>
-                  <select name="relier" id="sondeCorbeille"></select>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="nom">Nom de la sonde : </label>
-                </td>
-                <td>
-                  <input type="text" name="nom" id="nom" size="30" maxlength="10" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="niveau">Niveau (position y) : </label>
-                </td>
-                <td>
-                  <select name="niveau">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2.5">2.5</option>
-                    <option value="4">4</option>
-                  </select>
-                </td>	
-              </tr>
-              <tr>
-                <td>
-                  <label for="posx">Position x :</label>
-                </td>
-                <td>
-                  <input type="text" name="posx" id="posx" size="30" maxlength="4" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="posz">Position z :</label>
-                </td>
-                <td>
-                  <input type="text" name="posz" id="posz" size="30" maxlength="4" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <input type="submit" value="Ajouter" />
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-        </form>
-      </div>
-  
-      <div id="tabs-2">
-        <form action="admin/ajouterCorbeille.php" method="post">     
-          <fieldset>
-            <legend>Ajouter une Corbeille</legend>
-            <table>
-              <tr>
-                <td>
-                  <label for="nom">Nom de la corbeille : </label>
-                </td>
-                <td>
-                  <input type="text" name="nom" id="nom" size="30" maxlength="10" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="posx">Position x :</label>
-                </td>
-                <td>
-                  <input type="text" name="posx" id="posx" size="30" maxlength="4" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label for="posz">Position z :</label>
-                </td>
-                <td>
-                  <input type="text" name="posz" id="posz" size="30" maxlength="4" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                  <input type="submit" value="Ajouter" /> 
-                </td>
-              </tr>
-            </table>
-          </fieldset>
-        </form>
-      </div>
-  
-      <div id="tabs-3">
-        <form action="admin/ajouterPuits.php" method="post">     
-          <fieldset>
-            <legend>Ajouter un Puits</legend>
-            <table>
-              <tr>
-                <td>
-                  <label for="nom">Nom du Puit : </label>
-                </td>
-                <td>
-                  <input type="text" name="nom" id="nom" size="30" maxlength="10" />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2"><input type="submit" value="Ajouter" /></td>
-              </tr>
-            </table>
-          </fieldset>
-        </form>	
-      </div>
-  
-      <div id="tabs-4">
-        <fieldset>
-          <legend>Supprimer une sonde</legend>
-          <table>
-            <tr>
-              <div class="tabs-listeSondes">
-                <ul id="selectable">
-                <?php
-                  $res = nomSonde();
-                  while($data = $res->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<li class="ui-widget-content" data-userid="' . $data['Sonde_id'] . '">' . $data['Nom'] . '</li>';
-                  }
-                ?>
-                </ul>
-              </div>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <button type="button" id="supprSonde">Supprimer</button>
-              </td>
-            </tr>
-          </table>
-        </fieldset>
-      </div>
-  
-      <div id="tabs-5">
-        <fieldset>
-          <legend>Supprimer une corbeille</legend>
-          <table>
-            <tr>
-              <div class="tabs-listeSondes">
-              <ul id="selectable2">
-                <?php
-                  $res = nomCorbeille();
-                  while($data = $res->fetch(PDO::FETCH_ASSOC)){
-                    echo '<li class="ui-widget-content" data-userid="' . $data['Corbeille_id'] . '">' . $data['Nom'] . '</li>';
-                  }
-                ?>
-                </ul>
-              </div>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <button type="button" id="supprCorbeille">Supprimer</button>
-              </td>
-            </tr>
-          </table>
-        </fieldset>
-      </div>
-  
-      <div id="tabs-6">
-        <fieldset>
-          <legend>Supprimer un puits</legend>
-          <table>
-            <tr>
-              <div class="tabs-listeSondes">
-                <ul id="selectable3">
-                <?php
-                  $res = nomPuits();
-                  while( $data = $res->fetch(PDO::FETCH_ASSOC) ){
-                    echo '<li class="ui-widget-content" data-userid=>'. $data['Nom_puits'] . '</li>';
-                  }
-                ?>
-                </ul>
-              </div>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <button id="supprPuits">Supprimer</button>
-              </td>
-            </tr>
-          </table>
-        </fieldset>
-      </div>
-  
-      <div id="tabs-7">
-        <fieldset>
-          <legend>Import/Export</legend>
-          <table>
-            <tr>
-              <form name="import" enctype="multipart/form-data" action="admin/backupBase.php" method="post">
-              <fieldset>
-                <legend>Import de fichier .sql</legend>
-                Fichier .sql: <input type="file" name="sql" required /><br />
-                <input type="hidden" name="action" value="import" />
-                <input type="hidden" name="MAX_FILE_SIZE" value="300000" />
-                <input type="submit" value="Valider" />
-              </fieldset>
-              </form>
-              <br />
-              <form name="export" action="admin/backupBase.php" method="post">
-                <fieldset>
-                  <legend>Export de la base</legend>
-                  Nom du fichier: <input type="text" name="filename" required /><br />
-                  <input type="hidden" name="action" value="export" />
-                  <input type="submit" value="Valider" />
-                </fieldset>
-              </form>
-            </tr>
-          </table>
-        </fieldset>
-      </div>
-  
-      <div id="tabs-8">
-        <fieldset>
-          <legend>Arduino</legend>
-          <table>
-            <tr>
-              <form name="chgFreq" action="admin/arduino.php" method="post">
-                <fieldset>
-                  <legend>Changement de la fréquence des saisies</legend>
-                  Fréquence (en ms): <input type="number" name="freq" required /><br />
-                  <input type="submit" value="Valider" />
-                </fieldset>
-              </form>
-            </tr>
-          </table>
-        </fieldset>
-      </div>
-    </div> <!--tabs-->
-  </div> <!--contenu-->
-</div> <!--centrer-->
+<?php include('includes/layout/footer.php');  ?>
 
-<?php include('includes/layout/footer.php'); ?>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        //Horizontal Tab
+        $('#parentTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            tabidentify: 'hor_1', // The tab groups identifier
+            active_border_color: '#e1e1e1', // border color for active tabs heads in this group
+            active_content_border_color: '#E94F51',
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+    });
+  </script>
 
 </body>
 </html>

@@ -1,9 +1,22 @@
-<meta charset='UTF-8'>
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Géothermie - Accueil</title>
+    <meta name="author" content="IUT Informatique d'Orléans">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="icon" href="assets/images/favicon.ico" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
-<title>Puits Canadien</title>
+    <!-- Basic scripts
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
 
-<link rel='stylesheet' type='text/css' href='assets/css/style.css' />
-<link rel="stylesheet" href="assets/vendor/jquery/jquery-ui.css" />
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="assets/images/favicon.ico" />
-<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="assets/css/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/vendor/c3/c3.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">

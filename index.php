@@ -2,29 +2,17 @@
 <html lang="fr">
   <head>
 
-    <!-- Basic Page Needs
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta charset="utf-8">
-    <title>Géothermie - Accueil</title>
-    <meta name="author" content="IUT Informatique d'Orléans">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-
-    <!-- Mobile Specific Metas
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSS
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="assets/css/fonts/fonts.css">
-    <link rel="stylesheet" href="assets/vendor/c3/c3.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <?php
+      include('includes/layout/head.php');
+      include("admin/ConnexionBD.php");
+    ?>
     <link rel="stylesheet" href="assets/css/datepicker.css">
+    <link rel="stylesheet" href="assets/vendor/jquery/jquery.ui.theme.css">
 
     <!-- SCRIPTS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="assets/vendor/d3/d3.min.js" charset="utf-8"></script>
     <script src="assets/vendor/c3/c3.min.js"></script>
-    <script src="assets/vendor/jquery/jquery-1.9.1.min.js"></script>
     <script src="assets/js/datepicker.js"></script>
     <script src="assets/js/datepicker.fr.js"></script>
 
@@ -32,17 +20,7 @@
   <body>
     <div class="container">
 
-      <!-- Page Nav
-      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-      <nav class="navbar row u-cf">
-        <div class="container">
-          <a href="#" class="navbar-title u-pull-left">Graphe GTE</a>
-          <ul class="navbar-list u-pull-right">
-            <li class="navbar-item"><a href="#" class="navbar-link">Administration</a></li>
-            <li class="navbar-item"><a href="#" class="navbar-link">Aide</a></li>
-          </ul>
-        </div>
-      </nav>
+      <?php include('includes/layout/header.php'); ?>
 
       <!-- Page Content - Boxes
       –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -136,15 +114,8 @@
         </section>
       </div>
     </div>
-    <footer class="footer-bar">
-      <div class="container">
-        <ul class="footer-list">
-          <li class="footer-item">Projet de l'<a class="footer-link" href="#">IUT Informatique d'Orléans</a></li> <span>|</span>
-          <li class="footer-item"><a class="footer-link" href="#">License</a></li> <span>|</span>
-          <li class="footer-item"><a class="footer-link" href="#">Contact</a></li>
-        </ul>
-      </div>
-    </footer>
+    <div class="push"></div>
+    <?php include('includes/layout/footer.php'); ?>
 
     <script src="assets/js/graph.js"></script>
     <script>

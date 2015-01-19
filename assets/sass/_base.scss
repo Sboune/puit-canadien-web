@@ -18,6 +18,10 @@ h6 {
 /* Wrappers
    ========================================================================== */
 
+html, body {
+  height: 100%;
+}
+
 .boxes {
   padding-top: 6em;
 
@@ -25,6 +29,21 @@ h6 {
     margin-bottom: 4rem;
   }
 
+}
+
+.container {
+  min-height: 100%;
+  height: auto!important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+
+.footer, .push {
+  height: 4em;
+}
+
+.wrapper {
+  padding-top: 6em;
 }
 
 
@@ -86,6 +105,11 @@ h6 {
   color: #222;
 }
 
+/*------------------------------------*\
+    #TABS
+\*------------------------------------*/
+
+
 /* Page-content
    ========================================================================== */
 
@@ -116,6 +140,10 @@ h6 {
 
 .box-section #chart {
   margin-left: -2rem;
+}
+
+.login-box {
+  text-align: center;
 }
 
 /*------------------------------------*\
