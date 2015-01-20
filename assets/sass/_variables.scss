@@ -1,0 +1,40 @@
+/* ==========================================================================
+   SETTINGS
+   - Global
+   ========================================================================== */
+
+/* Global 
+   ========================================================================== */
+
+// Colors
+  $primary-color: #E94F51;
+$secondary-color: #bbbbbb;
+   $border-color: #bbbbbb;
+     $link-color: #E94F51;
+     $font-color: #222222;
+     $light-gray: #e1e1e1;
+      $dark-gray: #333333;
+
+// Grid Variables
+$container-width: 960px;
+  $total-columns: 12;
+   $column-width: 100 / $total-columns; // calculates individual column width based off of # of columns
+  $column-margin: 3.666666666666%; // space between columns
+ $column-padding: 4px 8px; // space inside columns
+      $row-space: 2rem; // Margin-bottom for .row
+
+
+// Breakpoints
+   $larger-than-mobile: 400px;
+  $larger-than-phablet: 550px;
+   $larger-than-tablet: 750px;
+  $larger-than-desktop: 1000px;
+$larger-than-desktophd: 1200px;
+
+// Typography
+$font-family: "Gotham-Book", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-bold: "Gotham-Bold", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-Medium: "Gotham-Medium", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Misc
+$global-radius: 4px;

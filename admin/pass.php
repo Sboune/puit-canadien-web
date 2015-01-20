@@ -1,17 +1,5 @@
-<?php include('includes/layout/header.php');?>
-
 <?php
   $pass = '0000';
-?>
-  
-<p style="margin-top: 100px; text-align: center">Veuillez entrer le mot de passe !</p>
-    
-<form style="text-align: center" action="#" method="post">
-  <input type="password" name="pass" value=""/>   
-  <input type="submit" value="Valider"/>
-</form>
-  
-<?php
 
   if(isset($_POST['pass'])) {
     if($_POST['pass'] == $pass) {
@@ -26,9 +14,4 @@
   if(!isset($_SESSION['pass'])) {
     $_SESSION['pass'] = false;
   }
-
-  if($_SESSION['pass'] == false) {
-    exit;
-  }
-
 ?>
