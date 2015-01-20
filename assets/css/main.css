@@ -262,7 +262,7 @@ input[type="checkbox"], input[type="radio"] {
   margin-left: 0; }
 
 /* For devices larger than 550px */
-@media (min-width: 550px) {
+@media (min-width: 750px) {
   .container {
     width: 80%; }
 
@@ -719,6 +719,42 @@ html, body {
   text-decoration: none;
   line-height: 6.5rem;
   color: #222; }
+
+/*------------------------------------*\
+    #SUBNAV
+\*------------------------------------*/
+.sub-nav {
+  position: fixed;
+  margin-top: 0.35em;
+  margin-bottom: 1em; }
+  .sub-nav li {
+    list-style: none; }
+    .sub-nav li a {
+      font-family: "Gotham-Book", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #222222;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      padding-left: 0.25em; }
+  .sub-nav .sub-nav li a {
+    padding-left: 30px; }
+  .sub-nav .active > a, .sub-nav li > a:hover, .sub-nav li > a:focus {
+    border-left: 2px solid #bbbbbb;
+    color: #E94F51; }
+
+.subgroup a {
+  width: 50px; }
+
+@media (max-width: 750px) {
+  .sub-nav {
+    position: relative;
+    padding-bottom: 3em;
+    border-bottom: 1px solid #e1e1e1; }
+
+  .sub-nav a, .sub-nav .active, .sub-nav a.active {
+    border: none;
+    padding-left: 0; }
+ }
 
 /*------------------------------------*\
     #TABS
