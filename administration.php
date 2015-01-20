@@ -4,6 +4,7 @@
 <head>
 
   <?php
+    $title = "Administration";
     include('includes/layout/head.php');
     include('admin/GestionBase.php');
   ?>

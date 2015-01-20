@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-
     <?php
+      $title = "Accueil";
       include('includes/layout/head.php');
       include("admin/ConnexionBD.php");
     ?>

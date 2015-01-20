@@ -1,7 +1,7 @@
     <!-- Basic Page Needs
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8">
-    <title>Géothermie - Accueil</title>
+    <title>Géothermie - <?php echo $title; ?></title>
     <meta name="author" content="IUT Informatique d'Orléans">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link rel="icon" href="assets/images/favicon.ico" />

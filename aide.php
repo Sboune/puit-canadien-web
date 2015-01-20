@@ -2,7 +2,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <?php include('includes/layout/head.php'); ?>
+  <?php 
+    $title = "Aide";
+    include('includes/layout/head.php'); 
+  ?>
   <script type="text/javascript" src="assets/js/scrollspy.js"></script>
 </head>
 <body>
