@@ -33,7 +33,10 @@
           <div class="box">
             <div class="box-section">
               <p>Utilisez la vue 3D pour sélectionner des sondes</p>
-              <img src="assets/images/3D-debug.png" alt="3D-debug" class="responsive-image">
+              <div id="3D">
+                
+              </div>
+              <!--<img src="assets/images/3D-debug.png" alt="3D-debug" class="responsive-image">-->
             </div>
             <hr>
             <div class="box-section">
@@ -118,6 +121,18 @@
     <?php include('includes/layout/footer.php'); ?>
 
     <script src="assets/js/graph.js"></script>
+    <script src="assets/vendor/threejs/three.min2.js"></script>
+    <script src="assets/vendor/threejs/OrbitControls2.js"></script>
+    <script src="assets/vendor/threejs/Detector.js"></script>
+    <!--<script src="assets/vendor/threejs/THREEx.FullScreen.js"></script>-->
+    <script src="assets/vendor/threejs/THREEx.WindowResize.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/placer_sonde.js"></script>
+    <script src="assets/js/placer_corbeille.js"></script>
+    <script src="assets/js/placer_puit.js"></script>
+    <?php include 'includes/scripts/pos_corbeille.php'; ?>
+    <?php include 'includes/scripts/pos_sonde.php'; ?>
+    <?php echo "<script> placer_puit(); </script>"; ?>
     <script>
 
       $('#datepicker').datepicker({

@@ -3,7 +3,7 @@
 // declaration des variable globale
 
 var container, scene, camera, renderer, controls, stats;
-var keyboard = new THREEx.KeyboardState();
+//var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 var cube;
 var raycaster;
@@ -99,10 +99,10 @@ function init() {
     renderer = new THREE.CanvasRenderer(); 
   }
 
-  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+  renderer.setSize(900, 500);
   renderer.setClearColor(0xD9FDF8, 1);
   // attache le rendu a la div container
-  container = document.getElementById('container');
+  container = document.getElementById('3D');
   container.appendChild(renderer.domElement);
 
   // events
@@ -131,8 +131,8 @@ function init() {
   scene.add(light);
 
   //axes
-  //var axes = new THREE.AxisHelper(500);
-  // scene.add( axes );
+  var axes = new THREE.AxisHelper(5000);
+  scene.add( axes );
 
   var floorGeometryArr = new THREE.PlaneBufferGeometry (1800, 420, 1, 1);
   var floorGeometry = new THREE.PlaneBufferGeometry (1800, 600, 1, 1);
@@ -272,9 +272,12 @@ function onDocumentMouseMove(event) {
 
 function onDocumentMouseDown(event) {
   // maj position souris
-  mouse.x = ((event.clientX - 380) / SCREEN_WIDTH) * 2 - 1;
-  mouse.y = - ((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
-
+  mouse.x = ((event.clientX - 400) / SCREEN_WIDTH) * 2 - 1;
+  mouse.y = - ((event.clientY - 300) / SCREEN_HEIGHT) * 2 + 1;
+  console.log(event.clientX);
+  console.log(event.clientY);
+  console.log(mouse.x);
+  console.log(mouse.y);
   // on cherche les intersection
   raycaster.setFromCamera( mouse, camera);
   //var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
