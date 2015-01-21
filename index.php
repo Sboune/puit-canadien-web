@@ -125,7 +125,7 @@
     </div>
     <div class="push"></div>
     <?php include('includes/layout/footer.php'); ?>
-    
+    <?php include("assets/js/graph.php"); ?>
     <script>
 
       $(document).ready(function() {

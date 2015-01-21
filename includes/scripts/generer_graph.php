@@ -12,10 +12,10 @@
 	function generer_graph()
   {
 		if(isset($_POST['capteurs'])&& isset($_POST['dateDebut']) && isset($_POST['dateFin'])){
-			echo "Interval du :";
-			echo $_POST['dateDebut'];
-			echo " au ";
-			echo $_POST['dateFin'];
+			//echo "Interval du :";
+			//echo $_POST['dateDebut'];
+			//echo " au ";
+			//echo $_POST['dateFin'];
 			$dateDebut = $_POST['dateDebut'];
 			$dateFin = $_POST['dateFin'];
 			$donnees = [];
@@ -25,7 +25,7 @@
 				//testPrint($dataCapteur); test pour afficher les valeurs du capteurs
 				array_push($donnees, $dataCapteur);
 			}
-			printDonnees($donnees);
+			//printDonnees($donnees);
 			//echo $donnees[0];
 			//echo $donnees[1];
 			return $donnees;
@@ -40,10 +40,10 @@
 	function getCapteur($nom){
 		global $connexion;
 		$pstmt = $connexion->prepare("Select * from capteur where nomC = :nom");
-    $pstmt -> bindParam(':nom', $nom);
-    $pstmt -> execute();
-    $capteur = $pstmt -> fetch();
-    return $capteur;
+    	$pstmt -> bindParam(':nom', $nom);
+    	$pstmt -> execute();
+   	 	$capteur = $pstmt -> fetch();
+    	return $capteur;
 	}
 
 //fonction qui prend en paramètre un capteur, une date de début et une date de fin et retourne les données enregistrer par le capteur pendant cet interval de temps
@@ -81,8 +81,6 @@
     foreach($stmt as $requete) {
     	$donneeX = array();
     	//test
-    	//echo "<br>";
-    	//echo $requete[0];
     	//
     	$date_explosee = explode("-", $requete[0]);
   		$jourDeb = $date_explosee[2];
@@ -92,8 +90,6 @@
  			$jourHeure = explode(" ", $jourDeb);
  			$jour = $jourHeure[0];
  			//test
- 			//echo "<br>";
-    	//echo $jour;
     	//
 
  			$temp = explode(":", $jourHeure[1]);
