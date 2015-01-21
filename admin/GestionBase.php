@@ -1,18 +1,10 @@
 <?php
   include("ConnexionBD.php");
   
-  // renvoie le nom de toute les corbeilles
-  function nomCorbeille() {
+  // renvoie le nom de tous les dispositifs
+    function nomDispositif() {
     global $connexion;
-    $result = $connexion->prepare("SELECT Corbeille_id, Nom from Corbeille");
-    $result->execute();
-    return $result;
-  }
-  
-  // renvoie le nom de tout les puits
-  function nomPuits() {
-    global $connexion;
-    $result = $connexion->prepare("SELECT Nom_puits from Puits");
+    $result = $connexion->prepare("SELECT idD, nomD from dispositif");
     $result->execute();
     return $result;
   }
@@ -109,15 +101,27 @@
     $result -> execute();
   }
   
-  function AjouterCorbeille($nom, $posX, $posZ) {
-    global $connexion;        
-    $result = $connexion -> prepare("INSERT INTO Corbeille VALUES(NULL, :nom, :posX , 210 , :posZ )");
-    $result -> bindParam(':nom', $nom);
-    $result -> bindParam(':posX', $posX);
-    $result -> bindParam(':posZ', $posZ);
-    $result -> execute();
-  }
-  
+  //~ function AjouterCorbeille($nom, $posX, $posZ) {
+    //~ global $connexion;        
+    //~ $result = $connexion -> prepare("INSERT INTO Corbeille VALUES(NULL, :nom, :posX , 210 , :posZ )");
+    //~ $result -> bindParam(':nom', $nom);
+    //~ $result -> bindParam(':posX', $posX);
+    //~ $result -> bindParam(':posZ', $posZ);
+    //~ $result -> execute();
+  //~ }
+
+  function AjouterDispositif($nom, $type, $lieu, $posx, $posy, $posz) {
+     global $connexion;
+     $result = $connexion -> prepare("INSERT INTO dispositif VALUES (NULL, :nom, :type, :lieu, :posx, :posy, :posz)");
+     $result -> bindParam(':nom', $nom);
+     $result -> bindParam(':type', $type);
+     $result -> bindParam(':lieu', $lieu);
+     $result -> bindParam(':posx', $posx);
+     $result -> bindParam(':posy', $posy);
+     $result -> bindParam(':posz', $posz);
+     $result -> execute();
+   }
+
   function suppressionSonde($id) {
     global $connexion;
     $req = "DELETE from Sonde where Sonde_id = :id";
@@ -135,7 +139,7 @@
   
   function suppressionCorbeille($id) {
     global $connexion;
-    $result = $connexion -> prepare("DELETE from Corbeille where Corbeille_id = :id");
+    $result = $connexion -> prepare("DELETE from dispositif where idD = :id");
     $result -> bindParam(':id', $id);
     $result -> execute();
   }
