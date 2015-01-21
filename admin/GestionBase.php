@@ -1,6 +1,6 @@
 <?php
   include("ConnexionBD.php");
-    
+
   // renvoie le nom de tous les dispositifs
     function nomDispositif() {
     global $connexion;
