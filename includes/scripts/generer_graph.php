@@ -11,16 +11,22 @@
 //fonction qui génére un graph en fonction des capteurs et des dates selectionnées
 	function generer_graph()
   {
-		if(isset($_POST['A1-1'])&& isset($_POST['dateDebut']) && isset($_POST['dateFin'])){
+		if(isset($_POST['capteurs'])&& isset($_POST['dateDebut']) && isset($_POST['dateFin'])){
 			echo "Interval du :";
 			echo $_POST['dateDebut'];
 			echo " au ";
 			echo $_POST['dateFin'];
 			$dateDebut = $_POST['dateDebut'];
 			$dateFin = $_POST['dateFin'];
-			$capteur1 = getCapteur("A1-1");
-			$dataCapteur1 = getData($capteur1, $dateDebut, $dateFin);
-			testPrint($dataCapteur1);
+			$donnees = [];
+			foreach($_POST['capteurs'] as $box) {
+				$capteur = getCapteur($box);
+				$dataCapteur = getData($capteur, $dateDebut, $dateFin);
+				//testPrint($dataCapteur); test pour afficher les valeurs du capteurs
+				array_push($donnees, $dataCapteur);
+			}
+			printDonnees($donnees);
+
 		}
 		else{
 			echo "choisissez un capteur, et des dates";
@@ -30,7 +36,7 @@
 //fonction qui prend en paramètre le nom d'un capteur et renvoie le capteur
 	function getCapteur($nom){
 		global $connexion;
-		$pstmt = $connexion->prepare("Select * from capteur where nomD = :nom");
+		$pstmt = $connexion->prepare("Select * from capteur where nomC = :nom");
     $pstmt -> bindParam(':nom', $nom);
     $pstmt -> execute();
     $capteur = $pstmt -> fetch();
@@ -58,7 +64,8 @@
  		$dateFin = $anneeFin."-".$jourFin."-".$moisFin;
 
  		//requete de selection des données
-		$stmt = $connexion->prepare("Select date,valeur from donnees where date >= DATE_FORMAT(:date_d,'%d/%m/%Y %T') and date <= DATE_FORMAT(:date_f,'%d/%m/%Y %T') and idC = :id_capteur ");
+		$stmt = $connexion->prepare("Select date,valeur from donnees where date >= :date_d and date <= :date_f and idC = :id_capteur ");
+		//'2014-01-15 19:00:13'
     $stmt -> bindParam(':date_d' , $dateDebut);
     $stmt -> bindParam(':date_f' , $dateFin);
     $stmt -> bindParam(':id_capteur' , $capteur[0]);
@@ -77,10 +84,17 @@
 	}
 
 	function testPrint($data){
-		echo " Données : ";
+		echo "<br> Données : ";
 		foreach ($data as $d) {
 			echo " / ";
 			echo $d;
+		}
+	}
+
+	function printDonnees($donnees){
+		echo "<br> Liste donnes :";
+		foreach ($donnees as $data) {
+			testPrint($data);
 		}
 	}
 
