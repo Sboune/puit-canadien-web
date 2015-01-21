@@ -836,6 +836,12 @@ th {
   font-family: "Gotham-Medium", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal; }
 
+/*------------------------------------*\
+    #IFRAME
+\*------------------------------------*/
+iframe {
+  border: 0; }
+
 /* Page-foot
    ========================================================================== */
 /*------------------------------------*\

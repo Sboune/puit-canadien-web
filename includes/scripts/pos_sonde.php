@@ -4,35 +4,39 @@
   global $connexion;
   $stmt = $connexion -> prepare("SELECT * FROM capteur");
   $stmt -> execute();
+
+  echo "<script>";
   
   foreach ($stmt as $q) {
     $x = $q['posXC'];
     $y = $q['posYC'];
     $z = $q['posZC'];
-    $nom = $q['nomD'];
+    $nom = $q['nomC'];
     if($x != 0){
       if($nom[0] == 'A'){
         if($nom[1] == 'i')
-          echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,255); </script>\n";
+          echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,255);\n";
         else
-          echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,0); </script>\n";
+          echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,0);\n";
       } 
       elseif($nom[0] == 'B')
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,255,0); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,255,0);\n";
       elseif($nom[0] == 'C')  
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,255); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,255);\n";
       elseif($nom[0] == 'D')  
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,255); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,0,255);\n";
       elseif($nom[0] == 'E')
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",205,85,0); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",205,85,0);\n";
       elseif($nom[0] == 'R')
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",125,125,125); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",125,125,125);\n";
       elseif($nom[0] == 'T')
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,255); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,255);\n";
       elseif($nom[0] == 'V')
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,0); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",255,255,0);\n";
       else
-        echo "<script> placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,0); </script>\n";
+        echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.",0,0,0);\n";
     }
-  } 
+  }
+
+  echo "</script>";
 ?>

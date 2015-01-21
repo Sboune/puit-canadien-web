@@ -8,12 +8,12 @@ var clock = new THREE.Clock();
 var cube;
 var raycaster;
 
-var SCREEN_WIDTH = window.innerWidth - 350;
-var SCREEN_HEIGHT = window.innerHeight - 200; 
-var VIEW_ANGLE = 45;
+var SCREEN_WIDTH = window.innerWidth;
+var SCREEN_HEIGHT = window.innerHeight; 
+var VIEW_ANGLE = 50;
 var ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT;
-var NEAR = 0.1;
-var FAR = 20000;
+var NEAR = 1;
+var FAR = 10000;
 
 var projector, projector2, mouse = { x: 0, y: 0 }, INTERSECTED;
 var sprite1;
@@ -81,7 +81,7 @@ function supprSonde(value) {
 }
 
 function init() {
-
+  container = document.getElementById('3D');
   // scene
   scene = new THREE.Scene();
 
@@ -98,9 +98,9 @@ function init() {
   else {
     renderer = new THREE.CanvasRenderer(); 
   }
-
-  renderer.setSize(900, 500);
-  renderer.setClearColor(0xD9FDF8, 1);
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize(container.offsetWidth, container.offsetWidth / ASPECT);
+  renderer.setClearColor(0xEDEDED, 1);
   // attache le rendu a la div container
   container = document.getElementById('3D');
   container.appendChild(renderer.domElement);
@@ -114,7 +114,7 @@ function init() {
   // move mouse and: left   click to rotate, 
   //                 middle click to zoom, 
   //                 right  click to pan
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new THREE.OrbitControls(camera, renderer.domElement, container);
 
   // stats
 /*
@@ -196,7 +196,11 @@ function init() {
   droite.rotation.y = Math.PI / 2;
   scene.add(droite);
 
-
+  var geomT = new THREE.SphereGeometry(500, 10, 10);
+  var material100 = new THREE.MeshBasicMaterial({color:0x000000});
+  var sphere = new THREE.Mesh(geomT, material100);
+  scene.add(sphere);
+  targetList.push(sphere);
   
   var Geo = new THREE.CylinderGeometry(6, 6, 420, 8, 1, true); 
   var Mat = new THREE.MeshBasicMaterial({color:"rgb(0,0,0)",wireframe:false})
@@ -260,24 +264,37 @@ function init() {
 */
   raycaster = new THREE.Raycaster();
   document.addEventListener('mousedown', onDocumentMouseDown, false);
+  window.addEventListener( 'resize', onWindowResize, false );
+}
+
+function onWindowResize() {
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+
+  var newaspect = window.innerWidth / window.innerHeight;
+
+  renderer.setSize( container.offsetWidth, container.offsetWidth / newaspect );
+  //window.location.reload();
 }
 
 function onDocumentMouseMove(event) {
   //sprite1.position.set(event.clientX - 300, event.clientY - 140 - 20, 0);
 
   // maj position souris
-  mouse.x = ((event.clientX - 300) / SCREEN_WIDTH) * 2 - 1;
-  mouse.y = -((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
+  //mouse.x = ((event.clientX - 300) / SCREEN_WIDTH) * 2 - 1;
+  //mouse.y = -((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
 }
 
 function onDocumentMouseDown(event) {
   // maj position souris
-  mouse.x = ((event.clientX - 400) / SCREEN_WIDTH) * 2 - 1;
-  mouse.y = - ((event.clientY - 300) / SCREEN_HEIGHT) * 2 + 1;
-  console.log(event.clientX);
+  // demi écran -> x -109, y -265
+  // full screen -> x -345
+  // -16 = width d'une scrollbar sous windows -> à modifier
+  mouse.x = ((event.clientX - (((window.innerWidth)-container.offsetWidth)/2)) / container.offsetWidth) * 2 - 1;
+  mouse.y = - ((event.clientY - 265) / (container.offsetWidth / ASPECT)) * 2 + 1;
+  
+  console.log((window.innerHeight - (container.offsetWidth / ASPECT)) - 73);
   console.log(event.clientY);
-  console.log(mouse.x);
-  console.log(mouse.y);
   // on cherche les intersection
   raycaster.setFromCamera( mouse, camera);
   //var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
@@ -295,6 +312,7 @@ function onDocumentMouseDown(event) {
       scene.remove(intersects[0].object);
       var n = intersects[0].object.name.slice(0, intersects[0].object.name.length -1);
       console.log(n);
+      console.log(test);
       //intersects[0].object.material.color.setRGB(255, 0, 0);
       for(var i = 0; i < selected.length; i++) {
         if(selected[i].name == n) {
@@ -304,9 +322,8 @@ function onDocumentMouseDown(event) {
       }
     }
     else { // on clique sur une sonde pas encore selectionne 
-      intersects[0].object.material.color.setRGB(0, 0, 0);
+      intersects[0].object.material.color.setRGB(250, 0, 0);
       intersects[0].object.geometry.colorsNeedUpdate = true;
-      
       var tmpMat = new THREE.MeshLambertMaterial({color: 0x01FEDC});
       var tmpGeo = new THREE.SphereGeometry(12, 32, 16);  
       var tmp = new THREE.Mesh(tmpGeo, tmpMat);
@@ -412,3 +429,4 @@ function update() {
 function render() {  
   renderer.render(scene, camera);
 }
+
