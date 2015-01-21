@@ -23,7 +23,7 @@
       $(function() {
         $( "#selectable" ).selectable();
         $( "#selectable2" ).selectable();
-        $( "#selectable3" ).selectable();
+        //~ $( "#selectable3" ).selectable();
       });
 
     $('#supprSonde').click(function () {
@@ -35,35 +35,31 @@
       });
     });
 
-    $('#supprCorbeille').click(function () {
+    $('#supprDispositif').click(function () {
       $('#selectable2 .ui-widget-content.ui-selected').each(function(index) {
         var tmp = $(this).attr('data-userid');
-        $.post('admin/supprCorbeille.php', { id : tmp })
+        $.post('admin/supprDispositif.php', { id : tmp })
           .done(function (data) { location.reload(); })
           .fail(function (data) {});
       });
     });
 
-    $('#supprPuits').click(function () {
-      $('#selectable3 .ui-widget-content.ui-selected').each(function(index){
-        var tmp = $(this).text();
-        $.post('admin/supprPuits.php', { nom : tmp })
-          .done(function (data) { location.reload(); })
-          .fail(function (data) {  });
-      });
-    });	
+    //~ $('#supprPuits').click(function () {
+      //~ $('#selectable3 .ui-widget-content.ui-selected').each(function(index){
+        //~ var tmp = $(this).text();
+        //~ $.post('admin/supprPuits.php', { nom : tmp })
+          //~ .done(function (data) { location.reload(); })
+          //~ .fail(function (data) {  });
+      //~ });
+    //~ });	
 
     <?php
-      $res = nomCorbeille();
-      $res2 = nomPuits();
+      $res = nomDispositif();
 
       while($data = $res->fetch(PDO::FETCH_ASSOC)) {
-        echo "$('#sondeCorbeille').append('<option>" . $data['Nom'] . "');\n";
+        echo "$('#sondeCorbeille').append('<option>" . $data['nomD'] . "');\n";
       }
 
-      while($data = $res2->fetch(PDO::FETCH_ASSOC)) {
-        echo "$('#sondeCorbeille').append('<option>" . $data['Nom_puits']. "');\n";
-      }
     ?>
     });
   </script>
@@ -151,7 +147,7 @@
         </div>
         <div>
           <br>
-          <form action="#" method="post">
+          <form action="admin/ajouterDispositif.php" method="post">
             <h6>Ajouter un dispositif</h6>
             <div class="row">
               <div class="six columns">
@@ -163,6 +159,7 @@
                 <select name="type" class="u-full-width">
                   <option value="corbeille">Corbeille</option>
                   <option value="puit">Puit Canadien</option>
+                  <option value="Sonde">Sonde</option>
                   <option value="autre">Autre</option>
                 </select>
               </div>
@@ -171,7 +168,7 @@
               <div class="twelve columns">
                 <label for="lieu">Lieu :</label>
                 <select name="lieu" class="u-full-width">
-                  <option value="devantGTE">Devant batiment GTE</option>
+                  <option value="devantGTE">Devant le batiment GTE</option>
                   <option value="cafeteria">À côté de la cafétéria</option>
                 </select>
               </div>
@@ -198,27 +195,14 @@
           <div class="tabs-listeSondes">
             <ul id="selectable2">
               <?php
-                $res = nomCorbeille();
+                $res = nomDispositif();
                 while($data = $res->fetch(PDO::FETCH_ASSOC)){
-                  echo '<li class="ui-widget-content" data-userid="' . $data['Corbeille_id'] . '">' . $data['Nom'] . '</li>';
+                  echo '<li class="ui-widget-content" data-userid="' . $data['idD'] . '">' . $data['nomD'] . '</li>';
                 }
               ?>
             </ul>
           </div>
-          <button type="button" class="button-primary u-pull-right" id="supprCorbeille">Supprimer</button>
-          <div class="u-cf"></div>
-          <p>Puits canadien : </p>
-          <div class="tabs-listeSondes">
-            <ul id="selectable2">
-              <?php
-                $res = nomPuits();
-                while( $data = $res->fetch(PDO::FETCH_ASSOC) ){
-                  echo '<li class="ui-widget-content" data-userid=>'. $data['Nom_puits'] . '</li>';
-                }
-              ?>
-            </ul>
-          </div>
-          <button type="button" class="button-primary u-pull-right" id="supprCorbeille">Supprimer</button>
+          <button type="button" class="button-primary u-pull-right" id="supprDispositif">Supprimer</button>
           <div class="u-cf"></div>
         </div>
         <div>
