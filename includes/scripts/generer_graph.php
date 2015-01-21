@@ -26,6 +26,9 @@
 				array_push($donnees, $dataCapteur);
 			}
 			printDonnees($donnees);
+			//echo $donnees[0];
+			//echo $donnees[1];
+			return $donnees;
 
 		}
 		else{
@@ -75,9 +78,33 @@
     $data = array();
     //$date = array(); non prise en compte de la date des données pour le moment
 
-    foreach($stmt as $requete) { 
-      $data[$i] = $requete[1];
-      //$date[$i] = $requete[0];
+    foreach($stmt as $requete) {
+    	$donneeX = array();
+    	//test
+    	//echo "<br>";
+    	//echo $requete[0];
+    	//
+    	$date_explosee = explode("-", $requete[0]);
+  		$jourDeb = $date_explosee[2];
+ 			$moisDeb = $date_explosee[1]-1;
+ 			$anneeDeb = $date_explosee[0];
+
+ 			$jourHeure = explode(" ", $jourDeb);
+ 			$jour = $jourHeure[0];
+ 			//test
+ 			//echo "<br>";
+    	//echo $jour;
+    	//
+
+ 			$temp = explode(":", $jourHeure[1]);
+ 			$heure = $temp[0];
+ 			$minute = $temp[1];
+ 			$seconde = $temp[2];
+
+
+    	$donnee = "[Date.UTC(".$anneeDeb.", ".$moisDeb.", ".$jour.", ".$heure.", ".$minute.", ".$seconde."), ".$requete[1]." ]";
+      //$donnee += ", ".$requete[1]." ]";
+      $data[$i] = $donnee;
       $i = $i+1;
     }
     return $data;
