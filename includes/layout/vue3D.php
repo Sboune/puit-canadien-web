@@ -11,16 +11,25 @@
         margin: 0px;
         overflow: hidden;
       }
+      .sonde-label {
+        position: absolute;
+        background-color: white;
+        padding: 4px;
+        font-family: "Gotham-Book", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
 
-    <div id="container"></div>
+    <div id="container">
+      <div id="3Dlabel" class="sonde-label"></div>
+    </div>
     
     <script src="../../assets/vendor/jquery/jquery-1.9.1.js"></script>
     <script src="../../assets/vendor/threejs/three.min.js"></script>
     <script src="../../assets/vendor/threejs/Detector.js"></script>
-    <script src="../../assets/vendor/threejs/TrackballControls.js"></script>
+    <script src="../../assets/vendor/threejs/OrbitControls.js"></script>
     <script>
       var container;
       var camera, controls, scene, renderer;
@@ -31,29 +40,25 @@
       var raycaster = new THREE.Raycaster();
       var mouse = new THREE.Vector2();
 
+      var label, labelIntersected;
+
       init();
       animate();
 
       function init() {
-        container = document.getElementById( "container" );
+        container = document.getElementById("container");
+        label = document.getElementById("3Dlabel");
 
-        camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-        camera.position.z = 1000;
+        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
+        camera.position.z = 1150;
         camera.position.y = 200;
 
-        controls = new THREE.TrackballControls( camera );
-        controls.rotateSpeed = 1.0;
-        controls.zoomSpeed = 1.2;
-        controls.panSpeed = 0.8;
-        controls.noZoom = false;
-        controls.noPan = false;
-        controls.staticMoving = true;
-        controls.dynamicDampingFactor = 0.3;
+        controls = new THREE.OrbitControls( camera );
+        controls.damping = 1;
+        controls.zoomSpeed = 0.5;
+        controls.addEventListener( 'change', render );
 
         scene = new THREE.Scene();
-
-        var axes = new THREE.AxisHelper(5000);
-        scene.add( axes );
 
         var light = new THREE.PointLight(0xffffff);
         light.position.set(0, 250, 1000);
@@ -157,36 +162,35 @@
         var vmcMaterial = new THREE.MeshBasicMaterial({color: 0x111111, side:THREE.DoubleSide, transparent:true, opacity:0.5})
         var vmcGeometry = new THREE.PlaneBufferGeometry (200/2, 200/2, 6/2, 6/2);
         var vmch = new THREE.Mesh(vmcGeometry, vmcMaterial);
-        vmch.position.set(-800/2, 840/2-XOFFSET, 500/2);
+        vmch.position.set(-1000/2, 840/2-XOFFSET, 500/2);
         vmch.rotation.x = Math.PI / 2;
         vmch.name = "vmc";
         scene.add(vmch);
       
         var vmcarr = new THREE.Mesh(vmcGeometry, vmcMaterial);
-        vmcarr.position.set(-800/2, 740/2-XOFFSET, 400/2)
+        vmcarr.position.set(-1000/2, 740/2-XOFFSET, 400/2)
         vmcarr.name = "vmc";
         scene.add(vmcarr);
       
         var vmcb = new THREE.Mesh(vmcGeometry, vmcMaterial);
-        vmcb.position.set(-800/2, 640/2-XOFFSET, 500/2);
+        vmcb.position.set(-1000/2, 640/2-XOFFSET, 500/2);
         vmcb.rotation.x = Math.PI / 2;
         vmcb.name = "vmc";
         scene.add(vmcb);
 
         var Geo2 = new THREE.CylinderGeometry(2, 2, 100, 8, 1);
         var coin3 = new THREE.Mesh(Geo2, Mat);
-        coin3.position.x = -400;
+        coin3.position.x = -500.5;
         coin3.position.y = 418-XOFFSET;
         coin3.position.z = 200;
         coin3.rotation.z = Math.PI / 2;
         scene.add(coin3);
         var coin4 = new THREE.Mesh(Geo2, Mat);
-        coin4.position.x = -400;
+        coin4.position.x = -500.5;
         coin4.position.y = 320-XOFFSET;
         coin4.position.z = 200;
         coin4.rotation.z = Math.PI / 2;
         scene.add(coin4);
-
 
         if (Detector.webgl) {
           renderer = new THREE.WebGLRenderer({ antialias:true });
@@ -194,50 +198,84 @@
         else {
           renderer = new THREE.CanvasRenderer(); 
         }
-        renderer.setClearColor( 0xEDEDED );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setClearColor(0xEDEDED);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        window.addEventListener( 'resize', onWindowResize, false );
-        document.addEventListener( 'mousedown', onDocumentMouseDown , false );
+        window.addEventListener('resize', onWindowResize, false);
+        document.addEventListener('mousedown', onDocumentMouseDown , false);
+        document.addEventListener('mousemove', onDocumentMouseMove, false);
       }
 
       function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize(window.innerWidth, window.innerHeight);
       }
 
-      function onDocumentMouseDown( event ) {
+      function onDocumentMouseMove(event) {
+        label.style.left = (event.clientX + 2) + 'px';
+        label.style.top = (event.clientY - label.offsetHeight - 2) + 'px';
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+      }
 
+      function onDocumentMouseDown(event) {
         event.preventDefault();
 
-        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
-        raycaster.setFromCamera( mouse, camera );
+        raycaster.setFromCamera(mouse, camera);
         var intersects = raycaster.intersectObjects(targetList);
-        if ( intersects.length > 0 ) {
+        if (intersects.length > 0) {
+          // si la sonde est déjà sélectionnée
           if (intersects[0].object.name in selected) {
             var sondecolor = selected[intersects[0].object.name];
             intersects[0].object.material = sondecolor[0];
             delete selected[intersects[0].object.name];
+            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC);
           } else {
             selected[intersects[0].object.name] = [intersects[0].object.material];
             intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#DD2A2F"});
+            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC);
           }
         }
       }
 
       function animate() {
         requestAnimationFrame(animate);
+        controls.update();
         render();
+        update();
       }
 
       function render() {
-        controls.update();
         renderer.render(scene, camera);
+      }
+
+      function update() {
+        raycaster.setFromCamera(mouse, camera);
+        var intersects = raycaster.intersectObjects(targetList);
+        if (intersects.length > 0) {
+          if (intersects[0].object.name != labelIntersected) {
+            label.innerHTML = intersects[0].object.name;
+            labelIntersected = intersects[0].object.name;
+            label.style.visibility = "visible";
+          }
+        } else if (labelIntersected != "") {
+          labelIntersected = "";
+          label.style.visibility = "hidden";
+        }
+      }
+
+      function notifySondeSelected(name, id) {
+        window.parent.postMessage("selected:" + name + "," + id, "*");
+      }
+
+      function notifySondeDeleted(name, id) {
+        window.parent.postMessage("deleted:" + name + "," + id, "*");
       }
 
     </script>

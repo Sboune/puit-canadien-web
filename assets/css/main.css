@@ -786,6 +786,14 @@ html, body {
 .login-box {
   text-align: center; }
 
+.sonde-selected {
+  display: inline-block; }
+
+.sonde-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 /*------------------------------------*\
     #FORM
 \*------------------------------------*/

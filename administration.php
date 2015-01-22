@@ -81,10 +81,10 @@
     if($_SESSION['pass'] == false) {
     ?>
 
-    <div class="login-box">
+    <div class="login-box four columns offset-by-four">
       <p>Veuillez entrer le mot de passe !</p>
       <form style="text-align: center" action="#" method="post">
-        <input type="password" name="pass" value=""/>   
+        <input type="password" name="pass" class="u-full-width" value=""/>   
         <input type="submit" value="Valider"/>
       </form>
     </div>

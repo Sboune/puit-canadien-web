@@ -7,7 +7,6 @@
       include("admin/ConnexionBD.php");
     ?>
     <link rel="stylesheet" href="assets/css/datepicker.css">
-    <link rel="stylesheet" href="assets/vendor/jquery/jquery.ui.theme.css">
 
     <!-- SCRIPTS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -38,13 +37,13 @@
             <hr>
             <div class="box-section">
               <h6>Sondes sélectionnées : </h6>
-              <canvas class="sonde1-canevas" width="10" height="10"></canvas> Sonde 2m - 
-              <canvas class="sonde2-canevas" width="10" height="10"></canvas> Sonde 3m - 
-              <canvas class="sonde3-canevas" width="10" height="10"></canvas> Sonde 1.5m
+              <div id="selected-sonde">
+                Aucune sonde sélectionnée.
+              </div>
             </div>
             <hr>
             <div class="box-section">
-              <form action="#">
+              <form action="#" id="generate-graph-form">
                 <h6>Afficher sur une période de :</h6>
                 <div class="row input-daterange" id="datepicker">
                   <div class="one-half column">
@@ -153,6 +152,40 @@
         context.fillStyle = '#C5DFA2';
         context.fill();
       });
+
+      // fonction appelée lors de la reception d'un message de l'iframe
+      function receiveMessage(event) {
+        // match un message de la forme "fonction:nom,id"
+        var match = event.data.match("(^[a-z]*):([^,]+),(.+)");
+        if (match[1]=="selected") {
+          // si le div contient le texte "Aucune sonde sélectionnée.", on le vide
+          if ($('#selected-sonde:contains("Aucune sonde sélectionnée.")').length > 0) {
+            $("#selected-sonde").empty();
+          }
+          // on ajoute le span de la sonde selectionnée, et le champ caché au formulaire
+          $("#selected-sonde").append('<span class="sonde-selected" sonde-id="'+match[3]+'"><span> - </span><span class="sonde-color" style="background-color: #27636D;"></span> '+match[2]+'</span>\n')
+          $("#generate-graph-form").append('<input type="hidden" name="capteursId[]" value="' + match[3] + '">');
+        } else if (match[1]=="deleted") {
+          // on supprimer les elt qui ont l'attribut sonde-id égal à l'id du message
+          $('#selected-sonde > span[sonde-id="'+match[3]+'"]').remove();
+          $('#generate-graph-form > input[type="hidden"][value="'+match[3]+'"]').remove();
+          // si le div est vide, on remet le texte "Aucune sonde sélectionnée."
+          if( !$.trim( $("#selected-sonde").html() ).length ){
+            $("#selected-sonde").append('Aucune sonde sélectionnée.');
+          }
+        }
+        // si le premier elt contient un " - ", il faut le supprimer
+        if ($("#selected-sonde > span:first-child > span:first-child").text() == " - ") {
+          $("#selected-sonde > span:first-child > span:first-child").remove();
+        }
+      }
+
+      // listener du message de l'iframe
+      if (window.addEventListener) {
+        window.addEventListener('message', receiveMessage, false);
+      } else if (window.attachEvent) { // pour IE8
+        window.attachEvent('onmessage', receiveMessage);
+      }
 
     </script>
   </body>
