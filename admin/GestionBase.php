@@ -1,6 +1,6 @@
 <?php
   include("ConnexionBD.php");
-  
+    
   // renvoie le nom de tous les dispositifs
     function nomDispositif() {
     global $connexion;
@@ -9,17 +9,17 @@
     return $result;
   }
   
-  // renvoie les infos de toute les sondes 
-  function nomSonde() {
+  // renvoie les infos de tous les capteurs
+  function infoCapteur() {
     global $connexion;
-    $result = $connexion -> prepare("SELECT * from Sonde");
+    $result = $connexion -> prepare("SELECT * from capteur");
     $result -> execute();
     return $result;
   }
   
-  function AjouterSonde($nom, $niveau, $x, $z) {
+  function AjouterCapteur($idD, $nom, $type, $unite, $niveau, $x, $z) {
     global $connexion;
-  
+    //~ $niveau = 0;
     if($niveau == 1) {
       $y = 320;
     }
@@ -30,12 +30,15 @@
       $y = 20;
     }
   
-    $result = $connexion -> prepare("INSERT INTO Sonde VALUES (NULL, :nom, :niveau, :x, :y, :z)");
-    $result -> bindParam(':nom', $nom);
-    $result -> bindParam(':niveau', $niveau);
-    $result -> bindParam(':x', $x);
-    $result -> bindParam(':y', $y);
-    $result -> bindParam(':z', $z);
+    $result = $connexion -> prepare("INSERT INTO capteur VALUES (NULL, :idD, :nomC, :typeC, :unite, :nivProfond, :posXC, :posYC, :posZC)");
+    $result -> bindParam(':idD', $idD);
+    $result -> bindParam(':nomC', $nom);
+    $result -> bindParam(':typeC', $type);
+    $result -> bindParam(':unite', $unite);
+    $result -> bindParam(':nivProfond', $niveau);
+    $result -> bindParam(':posXC', $x);
+    $result -> bindParam(':posYC', $y);
+    $result -> bindParam(':posZC', $z);
     $result -> execute();
   }
   
@@ -121,11 +124,17 @@
      $result -> bindParam(':posz', $posz);
      $result -> execute();
    }
+  
+  function suppressionDonnees($id) {
+	global $connexion;
+    $result = $connexion -> prepare("DELETE from donnees where idC = :id");
+    $result -> bindParam(':id', $id);
+    $result -> execute();
+  }
 
-  function suppressionSonde($id) {
+  function suppressionCapteur($id) {
     global $connexion;
-    $req = "DELETE from Sonde where Sonde_id = :id";
-    $result = $connexion -> prepare($req);
+    $result = $connexion -> prepare("DELETE from capteur where idC = :id");
     $result -> bindParam(':id', $id);
     $result -> execute();
   }
