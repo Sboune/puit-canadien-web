@@ -21,7 +21,6 @@
     global $connexion;
     
     $niveau = (420-$y)/100;
-  
     $result = $connexion -> prepare("INSERT INTO capteur VALUES (NULL, :idD, :nomC, :typeC, :unite, :nivProfond, :posXC, :posYC, :posZC)");
     $result -> bindParam(':idD', $idD);
     $result -> bindParam(':nomC', $nom);

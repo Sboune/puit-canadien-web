@@ -120,12 +120,12 @@
                 <input type="text" required="required" class="u-full-width" name="posx" id="posx">
               </div>
               <div class="four columns">
-                <label for="posz">Profondeur (ordonnee, axe Z) :</label>
-                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
+                <label for="posx">Profondeur (ordonnee, axe Z) :</label>
+                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
               </div>
               <div class="four columns">
-                <label for="posy">Hauteur (cote, axe Y) :</label>
-                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
+                <label for="posz">Hauteur (cote, axe Y) :</label>
+                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
               </div>
               <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
             </div>
