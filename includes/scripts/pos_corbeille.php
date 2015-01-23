@@ -2,14 +2,18 @@
   require_once __DIR__.'/../../admin/ConnexionBD.php';
   
   global $connexion;
-  $stmt = $connexion -> prepare("SELECT * FROM Corbeille");
+  $stmt = $connexion -> prepare("SELECT * FROM dispositif WHERE typeD='corbeille'");
   $stmt -> execute();
+
+  echo "<script>";
   
   foreach ($stmt as $q) {
-    $x = $q['posX'];
-    $y = $q['posY'];
-    $z = $q['posZ'];
-    $nom = $q['Nom'];
-    echo " <script> placer_corbeille('".$nom."',".$x.",".$y.",".$z."); </script>";
+    $x = $q['posXD'];
+    $y = $q['posYD'];
+    $z = $q['posZD'];
+    $nom = $q['nomD'];
+    echo "placer_corbeille('".$nom."',".$x.",".$y.",".$z.");\n";
   }
+
+  echo "</script>";
 ?>

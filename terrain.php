@@ -7,15 +7,15 @@
 </head>
 <body>
 
-  <script src="assets/vendor/threejs/Three.js"></script>
+  <script src="assets/vendor/threejs/three.min2.js"></script>
   <script src="assets/vendor/threejs/Detector.js"></script>
-  <script src="assets/vendor/threejs/Stats.js"></script>
-  <script src="assets/vendor/threejs/OrbitControls.js"></script>
+  <!--<script src="assets/vendor/threejs/Stats.js"></script>-->
+  <script src="assets/vendor/threejs/OrbitControls2.js"></script>
   <script src="assets/vendor/threejs/THREEx.KeyboardState.js"></script>
   <script src="assets/vendor/threejs/THREEx.FullScreen.js"></script>
   <script src="assets/vendor/threejs/THREEx.WindowResize.js"></script>
 
-  <div id="container" style="z-index: 1; position: absolute; left:300px; right:50px; top:100px; bottom:100px"></div>
+  <div id="container" style="z-index: 1; position: absolute; left:380px; right:50px; top:100px; bottom:100px"></div>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/placer_sonde.js"></script>
   <script src="assets/js/placer_corbeille.js"></script>

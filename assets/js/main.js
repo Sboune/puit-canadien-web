@@ -3,16 +3,17 @@
 // declaration des variable globale
 
 var container, scene, camera, renderer, controls, stats;
-var keyboard = new THREEx.KeyboardState();
+//var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
 var cube;
+var raycaster;
 
-var SCREEN_WIDTH = window.innerWidth - 350;
-var SCREEN_HEIGHT = window.innerHeight - 200; 
-var VIEW_ANGLE = 45;
+var SCREEN_WIDTH = window.innerWidth;
+var SCREEN_HEIGHT = window.innerHeight; 
+var VIEW_ANGLE = 50;
 var ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT;
-var NEAR = 0.1;
-var FAR = 20000;
+var NEAR = 1;
+var FAR = 10000;
 
 var projector, projector2, mouse = { x: 0, y: 0 }, INTERSECTED;
 var sprite1;
@@ -80,7 +81,7 @@ function supprSonde(value) {
 }
 
 function init() {
-
+  container = document.getElementById('3D');
   // scene
   scene = new THREE.Scene();
 
@@ -97,10 +98,11 @@ function init() {
   else {
     renderer = new THREE.CanvasRenderer(); 
   }
-
-  renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+  renderer.setPixelRatio( window.devicePixelRatio );
+  renderer.setSize(container.offsetWidth, container.offsetWidth / ASPECT);
+  renderer.setClearColor(0xEDEDED, 1);
   // attache le rendu a la div container
-  container = document.getElementById('container');
+  container = document.getElementById('3D');
   container.appendChild(renderer.domElement);
 
   // events
@@ -112,16 +114,16 @@ function init() {
   // move mouse and: left   click to rotate, 
   //                 middle click to zoom, 
   //                 right  click to pan
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new THREE.OrbitControls(camera, renderer.domElement, container);
 
   // stats
-
+/*
   stats = new Stats();
   stats.domElement.style.position = 'absolute';
   stats.domElement.style.bottom = '0px';
   stats.domElement.style.zIndex = 100;
   container.appendChild(stats.domElement);
-
+*/
   // light
 
   var light = new THREE.PointLight(0xffffff);
@@ -129,27 +131,29 @@ function init() {
   scene.add(light);
 
   //axes
-  var axes = new THREE.AxisHelper(500);
-  // scene.add( axes );
+  var axes = new THREE.AxisHelper(5000);
+  scene.add( axes );
 
-  var floorGeometryArr = new THREE.PlaneGeometry(1800, 420, 1, 1);
-  var floorGeometry = new THREE.PlaneGeometry(1800, 600, 1, 1);
-  var wallGeometry = new THREE.PlaneGeometry(600, 420, 1, 1);
+  var floorGeometryArr = new THREE.PlaneBufferGeometry (1800, 420, 1, 1);
+  var floorGeometry = new THREE.PlaneBufferGeometry (1800, 600, 1, 1);
+  var wallGeometry = new THREE.PlaneBufferGeometry (600, 420, 1, 1);
   
   /* B32 */
   var textureB32 = THREE.ImageUtils.loadTexture('assets/images/B32.jpg');
-  textureB32.wrapS = textureB32.wrapT = THREE.RepeatWrapping;
+  //textureB32.wrapS = THREE.RepeatWrapping;
+  //textureB32.wrapT = THREE.RepeatWrapping;
   var B32Material = new THREE.MeshBasicMaterial({map: textureB32, side: THREE.DoubleSide});
-  var B32Geometry = new THREE.PlaneGeometry(1800, 420, 1, 1);
+  var B32Geometry = new THREE.PlaneBufferGeometry (1800, 420, 1, 1);
   var B32 = new THREE.Mesh(B32Geometry, B32Material);
   B32.position.set(0, 630, 0);
   scene.add(B32);
   
   /* CAFET */
   var textureCafet = THREE.ImageUtils.loadTexture('assets/images/Cafet.jpg');
-  textureCafet.wrapS = textureCafet.wrapT = THREE.RepeatWrapping;
+  //textureCafet.wrapS = THREE.RepeatWrapping;
+  //textureCafet.wrapT = THREE.RepeatWrapping;
   var CafetMaterial = new THREE.MeshBasicMaterial({map: textureCafet, side: THREE.DoubleSide});
-  var CafetGeometry = new THREE.PlaneGeometry(600, 420, 1, 1);
+  var CafetGeometry = new THREE.PlaneBufferGeometry (600, 420, 1, 1);
   var Cafet = new THREE.Mesh(CafetGeometry, CafetMaterial);
   Cafet.position.set(900, 630, 300);
   Cafet.rotation.y = -Math.PI / 2;
@@ -157,9 +161,10 @@ function init() {
   
   /* GTE */
   var textureGTE = THREE.ImageUtils.loadTexture('assets/images/GTE.jpg');
-  textureGTE.wrapS = textureGTE.wrapT = THREE.RepeatWrapping;
+  //textureGTE.wrapS = THREE.RepeatWrapping;
+  //textureGTE.wrapT = THREE.RepeatWrapping;
   var GTEMaterial = new THREE.MeshBasicMaterial({map: textureGTE, side: THREE.DoubleSide});
-  var GTEGeometry = new THREE.PlaneGeometry(600, 420,1,1);
+  var GTEGeometry = new THREE.PlaneBufferGeometry (600, 420,1,1);
   var GTE = new THREE.Mesh(GTEGeometry, GTEMaterial);
   GTE.position.set(-900, 630, 300);
   GTE.rotation.y = Math.PI / 2;
@@ -191,7 +196,11 @@ function init() {
   droite.rotation.y = Math.PI / 2;
   scene.add(droite);
 
-
+  var geomT = new THREE.SphereGeometry(500, 10, 10);
+  var material100 = new THREE.MeshBasicMaterial({color:0x000000});
+  var sphere = new THREE.Mesh(geomT, material100);
+  scene.add(sphere);
+  targetList.push(sphere);
   
   var Geo = new THREE.CylinderGeometry(6, 6, 420, 8, 1, true); 
   var Mat = new THREE.MeshBasicMaterial({color:"rgb(0,0,0)",wireframe:false})
@@ -206,7 +215,7 @@ function init() {
 
   /* VMC */
   var vmcMaterial = new THREE.MeshBasicMaterial({color: 0x111111, side:THREE.DoubleSide, transparent:true, opacity:0.5})
-  var vmcGeometry = new THREE.PlaneGeometry(200, 200, 6, 6);
+  var vmcGeometry = new THREE.PlaneBufferGeometry (200, 200, 6, 6);
   var vmch = new THREE.Mesh(vmcGeometry, vmcMaterial);
   vmch.position.set(-800, 840, 500);
   vmch.rotation.x = Math.PI / 2;
@@ -230,52 +239,71 @@ function init() {
   vmcb.name = "vmc";
   scene.add(vmcb);
 
-  projector = new THREE.Projector();
+  //projector = new THREE.Projector();
   document.addEventListener('mousemove', onDocumentMouseMove, false);
   
   // canvas
+  /*
   canvas1 = document.createElement('canvas');
   context1 = canvas1.getContext('2d');
   context1.font = "Bold 20px Arial";
   context1.fillStyle = "rgba(0,0,0,0.95)";
   context1.fillText('Hello, world!', 0, 20);
-    
-  texture1 = new THREE.Texture(canvas1) 
-  texture1.needsUpdate = true;
   
-  var spriteMaterial = new THREE.SpriteMaterial({ map: texture1, useScreenCoordinates: true, alignment: THREE.SpriteAlignment.topLeft });
+  //texture1 = new THREE.Texture(canvas1) 
+  //texture1.needsUpdate = true;
+  
+  //var spriteMaterial = new THREE.SpriteMaterial({ map: texture1, useScreenCoordinates: true, alignment: THREE.SpriteAlignment.topLeft });
+  var spriteMaterial = new THREE.SpriteMaterial({ useScreenCoordinates: true });
+  
   sprite1 = new THREE.Sprite(spriteMaterial);
   sprite1.scale.set(200, 100, 1.0);
   
   sprite1.position.set(0, 0, 0);
   scene.add(sprite1); 
-
-  projector2 = new THREE.Projector();
+*/
+  raycaster = new THREE.Raycaster();
   document.addEventListener('mousedown', onDocumentMouseDown, false);
+  window.addEventListener( 'resize', onWindowResize, false );
+}
+
+function onWindowResize() {
+
+  camera.aspect = window.innerWidth / window.innerHeight;
+
+  var newaspect = window.innerWidth / window.innerHeight;
+
+  renderer.setSize( container.offsetWidth, container.offsetWidth / newaspect );
+  //window.location.reload();
 }
 
 function onDocumentMouseMove(event) {
-  sprite1.position.set(event.clientX - 300, event.clientY - 140 - 20, 0);
+  //sprite1.position.set(event.clientX - 300, event.clientY - 140 - 20, 0);
 
   // maj position souris
-  mouse.x = ((event.clientX - 300) / SCREEN_WIDTH) * 2 - 1;
-  mouse.y = -((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
+  //mouse.x = ((event.clientX - 300) / SCREEN_WIDTH) * 2 - 1;
+  //mouse.y = -((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
 }
 
 function onDocumentMouseDown(event) {
   // maj position souris
-  mouse.x = ((event.clientX - 300) / SCREEN_WIDTH) * 2 - 1;
-  mouse.y = - ((event.clientY - 140) / SCREEN_HEIGHT) * 2 + 1;
-
+  // demi écran -> x -109, y -265
+  // full screen -> x -345
+  // -16 = width d'une scrollbar sous windows -> à modifier
+  mouse.x = ((event.clientX - (((window.innerWidth)-container.offsetWidth)/2)) / container.offsetWidth) * 2 - 1;
+  mouse.y = - ((event.clientY - 265) / (container.offsetWidth / ASPECT)) * 2 + 1;
+  
+  console.log((window.innerHeight - (container.offsetWidth / ASPECT)) - 73);
+  console.log(event.clientY);
   // on cherche les intersection
-
-  var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
-  projector2.unprojectVector(vector, camera);
-  var ray = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+  raycaster.setFromCamera( mouse, camera);
+  //var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
+  //projector2.unprojectVector(vector, camera);
+  //var ray = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
 
   // on cree un tableau avec tout les objets sélectionnable (les sondes)
-  var intersects = ray.intersectObjects(targetList);
-
+  //var intersects = ray.intersectObjects(targetList);
+  var intersects = raycaster.intersectObjects(targetList);
   if(intersects.length > 0) {
     if(intersects[0].object.name[intersects[0].object.name.length - 1] == '.') {
       // on clique sur une sonde deja selectionne
@@ -284,6 +312,8 @@ function onDocumentMouseDown(event) {
       scene.remove(intersects[0].object);
       var n = intersects[0].object.name.slice(0, intersects[0].object.name.length -1);
       console.log(n);
+      console.log(test);
+      //intersects[0].object.material.color.setRGB(255, 0, 0);
       for(var i = 0; i < selected.length; i++) {
         if(selected[i].name == n) {
           selected = unset(selected, selected[i]);
@@ -292,10 +322,9 @@ function onDocumentMouseDown(event) {
       }
     }
     else { // on clique sur une sonde pas encore selectionne 
-      intersects[0].object.material.color.setRGB(0, 0, 0);
+      intersects[0].object.material.color.setRGB(250, 0, 0);
       intersects[0].object.geometry.colorsNeedUpdate = true;
-      
-      var tmpMat = new THREE.MeshLambertMaterial({color: 0x000000});
+      var tmpMat = new THREE.MeshLambertMaterial({color: 0x01FEDC});
       var tmpGeo = new THREE.SphereGeometry(12, 32, 16);  
       var tmp = new THREE.Mesh(tmpGeo, tmpMat);
       tmp.position.x = intersects[0].object.position.x;
@@ -355,7 +384,7 @@ function update() {
   var delta = clock.getDelta(); 
 
   var vector = new THREE.Vector3(mouse.x, mouse.y, 1);
-  projector.unprojectVector(vector, camera);
+  //projector.unprojectVector(vector, camera);
   var ray = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
   var intersects = ray.intersectObjects(scene.children);
   if(intersects.length > 0) {
@@ -380,8 +409,8 @@ function update() {
         texture1.needsUpdate = true;
       }
       else {
-        context1.clearRect(0, 0, 300, 300);
-        texture1.needsUpdate = true;
+        //context1.clearRect(0, 0, 300, 300);
+        //texture1.needsUpdate = true;
       }
     }
   } 
@@ -394,9 +423,10 @@ function update() {
     texture1.needsUpdate = true;
   }
   controls.update();
-  stats.update();
+  //stats.update();
 }
 
 function render() {  
   renderer.render(scene, camera);
 }
+

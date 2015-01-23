@@ -2,3 +2,4 @@
 node_modules
 admin/config.php
 .sass-cache
+config.php

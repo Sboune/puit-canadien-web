@@ -786,6 +786,14 @@ html, body {
 .login-box {
   text-align: center; }
 
+.sonde-selected {
+  display: inline-block; }
+
+.sonde-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block; }
+
 /*------------------------------------*\
     #FORM
 \*------------------------------------*/
@@ -835,6 +843,12 @@ form label {
 th {
   font-family: "Gotham-Medium", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal; }
+
+/*------------------------------------*\
+    #IFRAME
+\*------------------------------------*/
+iframe {
+  border: 0; }
 
 /* Page-foot
    ========================================================================== */

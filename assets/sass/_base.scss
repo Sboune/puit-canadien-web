@@ -222,6 +222,16 @@ html, body {
   text-align: center;
 }
 
+.sonde-selected {
+  display: inline-block;
+}
+
+.sonde-color {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+
 /*------------------------------------*\
     #FORM
 \*------------------------------------*/
@@ -282,6 +292,13 @@ form label {
 th {
   font-family: $font-family-Medium;
   font-weight: normal;
+}
+
+/*------------------------------------*\
+    #IFRAME
+\*------------------------------------*/
+iframe {
+  border: 0;
 }
 
 /* Page-foot
