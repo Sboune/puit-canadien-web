@@ -26,10 +26,10 @@
         //~ $( "#selectable3" ).selectable();
       });
 
-    $('#supprSonde').click(function () {
+    $('#supprCapteur').click(function () {
       $('#selectable .ui-widget-content.ui-selected').each(function(index) {
         var tmp = $(this).attr('data-userid');
-        $.post('admin/supprSonde.php', { id : tmp })
+        $.post('admin/supprCapteur.php', { id : tmp })
           .done(function (data) { location.reload(); })
           .fail(function (data) {});
       });
@@ -55,9 +55,8 @@
 
     <?php
       $res = nomDispositif();
-
       while($data = $res->fetch(PDO::FETCH_ASSOC)) {
-        echo "$('#sondeCorbeille').append('<option>" . $data['nomD'] . "');\n";
+        echo "$('#sondeCorbeille').append('<option value=" . $data['idD'] . ">" . $data['nomD'] . "');\n";
       }
 
     ?>
@@ -97,35 +96,46 @@
       <div class="resp-tabs-container hor_1">
         <div>
           <br>
-          <form action="admin/ajouterSonde.php" method="post">
-            <h6>Ajouter une sonde</h6>
+          <form action="admin/ajouterCapteur.php" method="post">
+            <h6>Ajouter un capteur</h6>
             <div class="row">
               <div class="six columns">
-                <label for="nom">Nom de la sonde : </label>
-                <input type="text" class="u-full-width" name="nom" id="nom">
+                <label for="nom">Nom du capteur : </label>
+                <input type="text" required="required" class="u-full-width" name="nom" id="nom">
               </div>
               <div class="six columns">
                 <label for="relier">Dispositif parent : </label>
-                <select name="relier" class="u-full-width" id="sondeCorbeille"></select>
+                <select name="relier" required="required" class="u-full-width" id="sondeCorbeille"></select>
               </div>
             </div>
             <div class="row">
-              <div class="four columns">
-                <label for="niveau">Niveau (y): </label>
-                <select name="niveau" class="u-full-width">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2.5">2.5</option>
-                  <option value="4">4</option>
+			  <div class="six columns">
+				<label for="type">Type de capteur :</label>
+                <select name="type" required="required" class="u-full-width">
+                  <option value="A">Analogique</option>
+                  <option value="N">Numerique</option>
                 </select>
+			  </div>
+			  <div class="six columns">
+			    <label for="unite">Unite du capteur :</label>
+			    <select name="unite" required="required" class="u-full-width">
+                  <option value="tempe">Temperature °C</option>
+                  <option value="press">Pression</option>
+                </select>
+			  </div>
+            </div>
+            <div class="row">
+              <div class="four columns">
+                <label for="posx">Largeur (abscisse, axe X) :</label>
+                <input type="text" required="required" class="u-full-width" name="posx" id="posx">
               </div>
               <div class="four columns">
-                <label for="posx">Position x :</label>
-                <input type="text" class="u-full-width" name="posx" id="posx">
+                <label for="posx">Profondeur (ordonnee, axe Z) :</label>
+                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
               </div>
               <div class="four columns">
-                <label for="posz">Position z :</label>
-                <input type="text" class="u-full-width" name="posz" id="posz">
+                <label for="posz">Hauteur (cote, axe Y) :</label>
+                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
               </div>
               <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
             </div>
@@ -135,14 +145,14 @@
           <div class="tabs-listeSondes">
             <ul id="selectable">
             <?php
-              $res = nomSonde();
+              $res = infoCapteur();
               while($data = $res->fetch(PDO::FETCH_ASSOC)) {
-                echo '<li class="ui-widget-content" data-userid="' . $data['Sonde_id'] . '">' . $data['Nom'] . '</li>';
+                echo '<li class="ui-widget-content" data-userid="' . $data['idC'] . '">' . $data['nomC'] . '</li>';
               }
             ?>
             </ul>
           </div>
-          <button type="button" class="button-primary u-pull-right" id="supprSonde">Supprimer</button>
+          <button type="button" class="button-primary u-pull-right" id="supprCapteur">Supprimer</button>
           <div class="u-cf"></div>
         </div>
         <div>
@@ -186,8 +196,8 @@
                 <label for="posz">Position z :</label>
                 <input type="text" class="u-full-width" name="posz" id="posz">
               </div>
+              <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
             </div>
-            <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
           </form>
           <hr>
           <h6>Supprimer un dispositif</h6>
