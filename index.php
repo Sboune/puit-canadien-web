@@ -88,28 +88,12 @@
                     <th>Sonde</th>
                     <th>min</th>
                     <th>max</th>
+                    <th>moy</th>
                     <th>ecart-type</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><canvas class="sonde1-canevas" width="10" height="10"></canvas> Sonde 2m</td>
-                    <td>9</td>
-                    <td>25</td>
-                    <td>18</td>
-                  </tr>
-                  <tr>
-                    <td><canvas class="sonde2-canevas" width="10" height="10"></canvas> Sonde 3m</td>
-                    <td>5</td>
-                    <td>12</td>
-                    <td>8</td>
-                  </tr>
-                  <tr>
-                    <td><canvas class="sonde3-canevas" width="10" height="10"></canvas> Sonde 1.5m</td>
-                    <td>1</td>
-                    <td>8</td>
-                    <td>3</td>
-                  </tr>
+                  <?php getInfoTableau() ?>
                 </tbody>
               </table>
             </div>
