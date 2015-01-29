@@ -67,7 +67,25 @@
  		$dateFin = $anneeFin."-".$jourFin."-".$moisFin;
 
  		//requete de selection des données
-		$stmt = $connexion->prepare("Select date,valeur from donnees where date >= :date_d and date <= :date_f and idC = :id_capteur ");
+		//$stmt = $connexion->prepare("Select date,valeur from donnees where date >= :date_d and date <= :date_f and idC = :id_capteur 
+    //                            order by date
+    //                            limit 0, 5000");
+//if($capteur[0] == 1){
+      /*$stmt = $connexion->prepare("Select date,valeur from donnees where date between :date_d and :date_f and idC = :id_capteur 
+                            and date % 100000 = 0
+                            order by date
+                            limit 0, 10000");*/
+$stmt = $connexion->prepare("Select date, avg(valeur) from donnees 
+  where date between :date_d and :date_f
+  and idC = :id_capteur
+  GROUP BY YEAR(date), WEEKOFYEAR(date)
+  order by date");
+//    }else{
+//      $stmt = $connexion->prepare("Select date,valeur from donnees where date between :date_d and :date_f and idC = :id_capteur 
+//                            order by date
+//                            limit 0, 10000");
+//    }
+
 		//'2014-01-15 19:00:13'
     $stmt -> bindParam(':date_d' , $dateDebut);
     $stmt -> bindParam(':date_f' , $dateFin);
@@ -121,7 +139,10 @@
 		}
 	}
 
-
+  function getCapteurNameById($id){
+    global $connexion;
+    return $connexion->query("select nomC from capteur where idC =".$id)->fetch()[0];
+  }
 
 
 ?>
