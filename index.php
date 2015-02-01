@@ -157,8 +157,10 @@
           }
           // on ajoute le span de la sonde selectionnée, et le champ caché au formulaire
           $("#selected-sonde").append('<span class="sonde-selected" sonde-id="'+match[3]+'"><span> - </span><span class="sonde-color" style="background-color: #27636D;"></span> '+match[2]+'</span>\n')
-          $("#generate-graph-form").append('<input type="hidden" name="capteursId[]" value="' + match[3] + '">');
+          $("#generate-graph-form").append('<input type="hidden" name="capteursId[]" sonde-name="'+ match[2] + '" value="' + match[3] + '">');
+          addSerie(match[3],match[2]);
         } else if (match[1]=="deleted") {
+          removeSerie(match[2]);
           // on supprimer les elt qui ont l'attribut sonde-id égal à l'id du message
           $('#selected-sonde > span[sonde-id="'+match[3]+'"]').remove();
           $('#generate-graph-form > input[type="hidden"][value="'+match[3]+'"]').remove();

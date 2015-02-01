@@ -4,35 +4,6 @@
 
   function getCapteurNameById($id){
     global $connexion;
-    return $connexion->query("select nomC from capteur where idC =".$id)->fetch()[0];
-  }
-
-  function getInfoTableau(){
-
-    $idCapt = isset($_POST["capteursId"]) ? $_POST["capteursId"] : [1,7,10,16,19,22];
-
-    $dateDebut = isset($_POST['dateDebut']) ? $_POST['dateDebut'] : date('j/m/Y',mktime(0, 0, 0, date("m")  , date("d"), date("Y")-1));
-    $dateFin = isset($_POST['dateFin']) ? $_POST['dateFin'] : date('j/m/Y',mktime(0, 0, 0, date("m")  , date("d"), date("Y")));
-    $donnees = [];
-      
-    $date_explosee = explode("/", $dateDebut);  // la fonction explode permet de séparer la chaine en tableau selon un délimiteur
-      
-    $jourDeb  = $date_explosee[1];
-    $moisDeb  = $date_explosee[0];
-    $anneeDeb = $date_explosee[2];
-  
-    $date_explosee = explode("/", $dateFin);
-  
-    $jourFin  = $date_explosee[1];
-    $moisFin  = $date_explosee[0];
-    $anneeFin = $date_explosee[2];
-      
-    $dateDebut = $anneeDeb."-".$jourDeb."-".$moisDeb;
-    $dateFin   = $anneeFin."-".$jourFin."-".$moisFin;
-
-    $data = "";
-
-    global $connexion;
 
     foreach ($idCapt as $idCapt) {
       $connexion->exec("SET NAMES UTF8");
