@@ -1,57 +1,30 @@
 
 <?php 
-  $idCapt = $_POST["capteursId"];
+  $idCapt = isset($_POST["capteursId"]) ? $_POST["capteursId"] : [1,7,10,16,19,22];
 ?>
 <script>
 $.ajaxSetup({'async': false});
 
-
-
-/*
-var tempO = [-2, -2.6, -2.5, -2.2, -4.7, -4.2, -3.7, -4.2, -3.8,
- -4.4, -2, -0.6, 1.6, 2, 2.6, 2.6, 2.1, 1.4, 0, -0.7, -1.2, -1.1,
-  -1.2, -0.9]
-var temp = [3.1, 3.1, 3.9, 4, 4, 3, 3.7, 3.6, 2.2, 2.4, 2.4, 3,
- 1.5, 2, 1.1, 1.7, 1.8, -0.3, -0.5, 0.2, -0.1, 0.7, -0.4, -0.3];
-var tempP=[];
-// création  de tableau random
-//for (var i = 0; i < 290; i++) { tempP.push((Math.random()*10)-5);}; 
-for (var i = 0; i < 5; i++) {
-	var tab=[];
-	for (var j = 0; j < 5; j++) {
-		tab.push((Math.random()*10)-5);
-	};
-	tempP.push(tab);
-};
-
-*/
 function afterSetExtremes(e) {
-
-
   var chart = $('#chart').highcharts();
-
   //console.dir(chart);
-
   <?php
   $ii = 0;
   foreach ($idCapt as $idCC) {
-  
 ?>
-  chart.showLoading('Loading data from server...');
-  $.getJSON('includes/scripts/getDataChart.php?id=<?php echo $idCC ?>&start=' 
-            + Math.round(e.min) +
-            '&end=' + Math.round(e.max) + '&callback=?', function (data) {
-                chart.series[<?php echo $ii;?>].setData(data);
-                chart.hideLoading();
-            });
-
-  <?php
-  $ii++;
-}
+    chart.showLoading('Loading data from server...');
+    $.getJSON('includes/scripts/getDataChart.php?id=<?php echo $idCC ?>&start=' 
+                + Math.round(e.min) +
+                '&end=' + Math.round(e.max) + '&callback=?', function (data) {
+                    chart.series[<?php echo $ii;?>].setData(data);
+                    chart.hideLoading();
+                });
+<?php
+        $ii++;
+    }
 ?>
 
 }
-
 
 /*
 $('#chart').highcharts('StockChart', {
@@ -173,8 +146,10 @@ $('#chart').highcharts('StockChart', {
 */
 var options = {series:[]};
 <?php
-  $dateDebut = strtotime(str_replace("/","-",$_POST['dateDebut']));
-  $dateFin = strtotime(str_replace("/","-",$_POST['dateFin']));
+  $dateDebut = isset($_POST['dateDebut']) ? strtotime(str_replace("/","-",$_POST['dateDebut'])) :
+                                             strtotime(date('Y-j-m',mktime(0, 0, 0, date("m")  , date("d")-7, date("Y")))) ;
+  $dateFin = isset($_POST['dateFin']) ? strtotime(str_replace("/","-",$_POST['dateFin'])) :
+                                             strtotime(date('Y-j-m',mktime(0, 0, 0, date("m")  , date("d")-7, date("Y")))) ;
   foreach ($idCapt as $idCC) {
 
 ?>
@@ -199,18 +174,13 @@ var oppppt = {
                 chart : {
                     zoomType: 'x'
                 },
-    
                 navigator : {
                     adaptToUpdatedData: false
                 },
-    
                 scrollbar: {
                     liveRedraw: false
                 },
-    
                 title: {text: ' '},
-    
-    
                 rangeSelector : {
                     buttons: [{
                         type: 'hour',
@@ -235,23 +205,17 @@ var oppppt = {
                     inputEnabled: false, // it supports only days
                     selected : 4 // all
                 },
-    
                 xAxis : {
                     events : {
                         afterSetExtremes : afterSetExtremes
                     },
                     minRange: 3600 * 1000 // one hour
                 },
-    
                 yAxis: {
                 }
-                
-                
             };
 
     oppppt.series = options.series;
-
-
 
     $('#chart').highcharts('StockChart', oppppt);
 

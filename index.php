@@ -61,11 +61,6 @@
                 </div>
                 <div class="row">
                   <div class="twelve columns">
-                    Sondes à selectionner :
-                    <input type="checkbox" name='capteurs[]' value="A1-1"> A1-1
-                    <input type="checkbox" name='capteurs[]' value="A1-2.5"> A1-2.5
-                    <input type="checkbox" name='capteurs[]' value="A1-4"> A1-4
-                    <input type="checkbox" name='capteurs[]' value="A2-1"> A2-1
                     <input class="button-primary u-full-width" type="submit" name="generer" value="Génerer">  
                   </div>
                 </div>
@@ -78,9 +73,7 @@
           <h5 class="section-header">Graphique des températures</h5>
           <div class="box">
             <div class="box-section">
-              <?php valider() ?> <!-- Appelle generer_graph.php-->
               <div id="chart"></div>
-              <div id="test"></div>
             </div>
           </div>
         </section>
@@ -126,7 +119,7 @@
     </div>
     <div class="push"></div>
     <?php include('includes/layout/footer.php'); ?>
-    <?php include("assets/js/graph.php"); ?>
+    <?php include("includes/scripts/graph.php"); ?>
     <script>
 
       $(document).ready(function() {
