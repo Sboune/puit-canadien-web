@@ -79,22 +79,26 @@
         </section>
 
         <section>
+        <link rel="stylesheet" href="assets/css/sortable-theme-bootstrap.css" />
+        <script src="assets/js/sortable.min.js" ></script>
           <h5 class="section-header">Statistiques</h5>
           <div class="box">
             <div class="box-section">
               <table class="u-full-width">
-                <thead>
-                  <tr>
-                    <th>Sonde</th>
-                    <th>min</th>
-                    <th>max</th>
-                    <th>moy</th>
-                    <th>ecart-type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php getInfoTableau() ?>
-                </tbody>
+                <table class="sortable-theme-bootstrap" data-sortable>
+                  <thead>
+                    <tr>
+                      <th>Sonde</th>
+                      <th>min</th>
+                      <th>max</th>
+                      <th>moy</th>
+                      <th>ecart-type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php getInfoTableau() ?>
+                  </tbody>
+                </table>
               </table>
             </div>
           </div>
