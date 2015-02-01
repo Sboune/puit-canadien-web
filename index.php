@@ -5,6 +5,7 @@
       $title = "Accueil";
       include('includes/layout/head.php');
       include("admin/ConnexionBD.php");
+      include("includes/scripts/generer_graph.php");
     ?>
     <link rel="stylesheet" href="assets/css/datepicker.css">
 
@@ -12,6 +13,9 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="assets/vendor/d3/d3.min.js" charset="utf-8"></script>
     <script src="assets/vendor/c3/c3.min.js"></script>
+    <!--<script src="assets/vendor/highcharts/highcharts.js"></script>-->
+    <script src="assets/vendor/highcharts/highstock.js"></script>
+    <script src="assets/vendor/highcharts/exporting.js"></script>
     <script src="assets/js/datepicker.js"></script>
     <script src="assets/js/datepicker.fr.js"></script>
 
@@ -43,21 +47,21 @@
             </div>
             <hr>
             <div class="box-section">
-              <form action="#" id="generate-graph-form">
+              <form action="index.php" id="generate-graph-form" method="POST">
                 <h6>Afficher sur une période de :</h6>
                 <div class="row input-daterange" id="datepicker">
                   <div class="one-half column">
                     <label for="dateDebut">Date de début</label>
-                    <input class="u-full-width input-sm" value="10/01/2015" type="text" id="dateDebut" size="18" name="start" >
+                    <input class="u-full-width input-sm" value="10/01/2015" type="text" id="dateDebut" name="dateDebut" size="18" name="start" >
                   </div>
                   <div class="one-half column">
                     <label for="dateFin">Date de fin</label>
-                    <input class="u-full-width input-sm" value="16/01/2015" type="text" id="dateFin" size="18" name="end" >
+                    <input class="u-full-width input-sm" value="16/01/2015" type="text" id="dateFin" name="dateFin" size="18" name="end" >
                   </div>
                 </div>
                 <div class="row">
                   <div class="twelve columns">
-                    <input class="button-primary u-full-width" type="submit" value="Génerer">
+                    <input class="button-primary u-full-width" type="submit" name="generer" value="Génerer">  
                   </div>
                 </div>
               </form>
@@ -115,7 +119,7 @@
     </div>
     <div class="push"></div>
     <?php include('includes/layout/footer.php'); ?>
-    
+    <?php include("includes/scripts/graph.php"); ?>
     <script>
 
       $(document).ready(function() {
