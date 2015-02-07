@@ -147,9 +147,9 @@ $('#chart').highcharts('StockChart', {
 var options = {series:[]};
 <?php
   $dateDebut = isset($_POST['dateDebut']) ? strtotime(str_replace("/","-",$_POST['dateDebut'])) :
-                                             strtotime(date('Y-j-m',mktime(0, 0, 0, date("m")  , date("d")-7, date("Y")))) ;
+                                             strtotime(date('j/m/Y',mktime(0, 0, 0, date("m")  , date("d"), date("Y")-1))) ;
   $dateFin = isset($_POST['dateFin']) ? strtotime(str_replace("/","-",$_POST['dateFin'])) :
-                                             strtotime(date('Y-j-m',mktime(0, 0, 0, date("m")  , date("d")-7, date("Y")))) ;
+                                             strtotime(date('j/m/Y',mktime(0, 0, 0, date("m")  , date("d"), date("Y")))) ;
   foreach ($idCapt as $idCC) {
 
 ?>
