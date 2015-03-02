@@ -282,8 +282,8 @@
 
     <script src="../../assets/js/placer_corbeille.js"></script>
     <?php include '../scripts/pos_corbeille.php'; ?>
-    <script src="../../assets/js/placer_sonde.js"></script>
-    <?php include '../scripts/pos_sonde.php'; ?>
+    <script src="../../assets/js/placer_capteur.js"></script>
+    <?php include '../scripts/pos_capteur.php'; ?>
     <script src="../../assets/js/placer_puit.js"></script>
 
   </body>
