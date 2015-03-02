@@ -278,6 +278,10 @@
         window.parent.postMessage("deleted:" + name + "," + id, "*");
       }
 
+      function reset() {
+        controls.reset();
+      }
+
     </script>
 
     <script src="../../assets/js/placer_corbeille.js"></script>

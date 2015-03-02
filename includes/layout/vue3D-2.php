@@ -21,7 +21,6 @@
     </style>
   </head>
   <body>
-
     <div id="container">
       <div id="3Dlabel" class="sonde-label"></div>
     </div>
@@ -253,6 +252,10 @@
 
       function notifySondeDeleted(name, id) {
         window.parent.postMessage("deleted:" + name + "," + id, "*");
+      }
+
+      function reset() {
+        controls.reset();
       }
 
     </script>
