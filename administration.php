@@ -23,7 +23,6 @@
       $(function() {
         $( "#selectable" ).selectable();
         $( "#selectable2" ).selectable();
-        //~ $( "#selectable3" ).selectable();
       });
 
     $('#supprCapteur').click(function () {
@@ -43,15 +42,6 @@
           .fail(function (data) {});
       });
     });
-
-    //~ $('#supprPuits').click(function () {
-      //~ $('#selectable3 .ui-widget-content.ui-selected').each(function(index){
-        //~ var tmp = $(this).text();
-        //~ $.post('admin/supprPuits.php', { nom : tmp })
-          //~ .done(function (data) { location.reload(); })
-          //~ .fail(function (data) {  });
-      //~ });
-    //~ });	
 
     <?php
       $res = nomDispositif();
@@ -88,7 +78,7 @@
 
     <div id="parentTab">
       <ul class="resp-tabs-list hor_1">
-        <li>Gérer sondes</li>
+        <li>Gérer capteur</li>
         <li>Gérer dispositifs</li>
         <li>Impoter/Exporter</li>
         <li>Arduino</li>
@@ -130,18 +120,18 @@
                 <input type="text" required="required" class="u-full-width" name="posx" id="posx">
               </div>
               <div class="four columns">
-                <label for="posx">Profondeur (ordonnee, axe Z) :</label>
-                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
+                <label for="posz">Profondeur (ordonnee, axe Z) :</label>
+                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
               </div>
               <div class="four columns">
-                <label for="posz">Hauteur (cote, axe Y) :</label>
-                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
+                <label for="posy">Hauteur (cote, axe Y) :</label>
+                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
               </div>
               <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
             </div>
           </form>
           <hr>
-          <h6>Supprimer des sondes</h6>
+          <h6>Supprimer des capteurs</h6>
           <div class="tabs-listeSondes">
             <ul id="selectable">
             <?php
