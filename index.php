@@ -36,6 +36,7 @@
           <div class="box">
             <div class="box-section">
               <p>Utilisez la vue 3D pour sélectionner des sondes</p>
+              <button type="button" id="reset" onclick="resetIframe()"> Reset </button>
               <iframe id="iframe" class="u-full-width" src="includes/layout/vue3D.php"></iframe>
             </div>
             <hr>
@@ -177,6 +178,10 @@
         window.addEventListener('message', receiveMessage, false);
       } else if (window.attachEvent) { // pour IE8
         window.attachEvent('onmessage', receiveMessage);
+      }
+
+      function resetIframe() {
+        $("#iframe")[0].contentWindow.reset();
       }
 
     </script>
