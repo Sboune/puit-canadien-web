@@ -1,7 +1,7 @@
 <?php
   define('HOST', 'localhost');
   define('USER', 'root');
-  define('PASS', '12345678');
-  define('BASE', 'NewBDGeothermie');
+  define('PASS', 'root');
+  define('BASE', 'projet_tutore');
 ?>
 
