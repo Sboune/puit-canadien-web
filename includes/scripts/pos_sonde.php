@@ -2,7 +2,7 @@
   require_once __DIR__.'/../../admin/ConnexionBD.php';
   
   global $connexion;
-  $stmt = $connexion -> prepare("SELECT * FROM dispositif where nomD = 'sonde100' or nomD = 'sonde70'");
+  $stmt = $connexion -> prepare("SELECT * FROM dispositif where nomD = 'sonde80' or nomD = 'sonde70' or nomD='sonde70bis'");
   $stmt -> execute();
 
   echo "<script>";
