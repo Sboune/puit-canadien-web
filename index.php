@@ -36,6 +36,11 @@
           <h5 class="section-header">Filtres</h5>
           <div class="box">
             <div class="box-section">
+              <p class="ta-center">Choisissez la vue à étudier</p>
+              <div class="switcher-wraper u-cf">
+                <div class="switcher switcher-left active">Vue 1</div>
+                <div class="switcher switcher-right">Vue 2</div>
+              </div>
               <p>Utilisez la vue 3D pour sélectionner des sondes</p>
               <button type="button" id="reset" onclick="resetIframe()"> Reset </button>
               <iframe id="iframe" class="u-full-width" src="includes/layout/vue3D.php"></iframe>
@@ -122,7 +127,22 @@
           scrollToAnchor(chartsection);
           return false;
         });
-      });
+
+        $('.switcher-wraper .switcher').click(function(event) {
+          if ($(this).hasClass('active')) {
+            return;
+          }
+          $('.switcher-wraper .switcher.active').removeClass('active');
+          $(this).addClass('active');
+          
+          var source = $('#iframe').attr('src');
+          if (source == "includes/layout/vue3D.php") {
+            $('#iframe').attr('src','includes/layout/vue3D-2.php');
+          } else {
+            $('#iframe').attr('src','includes/layout/vue3D.php'); 
+          }
+        });
+      }
 
       $('#datepicker').datepicker({
         format: "dd/mm/yyyy",
