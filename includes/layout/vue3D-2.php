@@ -168,6 +168,45 @@
         coin5.position.set(500,105,250);
         scene.add(coin5);
 
+        /* Jonction des sondes en bas */
+        var jonctionTexture = new THREE.MeshBasicMaterial({ color:"rgb(255,255,255)", wireframe:false });
+        var jonctionGeometry = new THREE.CylinderGeometry(6/2, 6/2, 30, 8, 1);
+        var jonction1 = new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction1.position.set(-190,-700,110);
+        jonction1.rotation.x = Math.PI / 2;
+        jonction1.rotation.z = - Math.PI / 4;
+        scene.add(jonction1);
+
+        var jonction2 = new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction2.position.set(-210,-700,130);
+        jonction2.rotation.x = Math.PI / 2;
+        jonction2.rotation.z = - Math.PI / 4;
+        scene.add(jonction2);
+
+        var jonction3 =  new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction3.position.set(-70, -700, -190);
+        jonction3.rotation.x = Math.PI / 2;
+        jonction3.rotation.z = - Math.PI / 4;
+        scene.add(jonction3);
+
+        var jonction4 =  new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction4.position.set(-90, -700, -170);
+        jonction4.rotation.x = Math.PI / 2;
+        jonction4.rotation.z = - Math.PI / 4;
+        scene.add(jonction4);
+
+        var jonction5 =  new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction5.position.set(210, -800, 110);
+        jonction5.rotation.x = Math.PI / 2;
+        jonction5.rotation.z = - Math.PI / 4;
+        scene.add(jonction5);
+
+        var jonction6 =  new THREE.Mesh(jonctionGeometry, jonctionTexture);
+        jonction6.position.set(190, -800, 130);
+        jonction6.rotation.x = Math.PI / 2;
+        jonction6.rotation.z = - Math.PI / 4;
+        scene.add(jonction6);
+
         if (Detector.webgl) {
           renderer = new THREE.WebGLRenderer({ antialias:true });
         }
@@ -256,6 +295,14 @@
 
       function reset() {
         controls.reset();
+      }
+
+      function zoomPlus(){
+        controls.dollyIn(1.2);
+      }
+
+      function zoomMoins(){
+        controls.dollyOut(1.2);
       }
 
     </script>
