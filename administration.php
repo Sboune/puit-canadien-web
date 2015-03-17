@@ -44,7 +44,7 @@
     });
 
     <?php
-      $res = nomDispositif();
+      $res = infoDispositif();
       while($data = $res->fetch(PDO::FETCH_ASSOC)) {
         echo "$('#sondeCorbeille').append('<option value=" . $data['idD'] . ">" . $data['nomD'] . "');\n";
       }
@@ -116,15 +116,15 @@
             </div>
             <div class="row">
               <div class="four columns">
-                <label for="posx">Largeur (abscisse, axe X) :</label>
+                <label for="posx">Longueur (axe X) :</label>
                 <input type="text" required="required" class="u-full-width" name="posx" id="posx">
               </div>
               <div class="four columns">
-                <label for="posz">Profondeur (ordonnee, axe Z) :</label>
+                <label for="posz">Largeur (axe Z) :</label>
                 <input type="text" required="required" class="u-full-width" name="posz" id="posz">
               </div>
               <div class="four columns">
-                <label for="posy">Hauteur (cote, axe Y) :</label>
+                <label for="posy">Hauteur (axe Y) :</label>
                 <input type="text" required="required" class="u-full-width" name="posy" id="posy">
               </div>
               <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
@@ -158,8 +158,8 @@
                 <label for="type">Type du dispositif :</label>
                 <select name="type" class="u-full-width">
                   <option value="corbeille">Corbeille</option>
-                  <option value="puit">Puit Canadien</option>
-                  <option value="Sonde">Sonde</option>
+                  <option value="puit canadien">Puit Canadien</option>
+                  <option value="sonde">Sonde</option>
                   <option value="autre">Autre</option>
                 </select>
               </div>
@@ -175,29 +175,28 @@
             </div>
             <div class="row">
               <div class="four columns">
-                <label for="posx">Position x :</label>
-                <input type="text" class="u-full-width" name="posx" id="posx">
+                <label for="posx">Longueur (axe X) :</label>
+                <input type="text" required="required" class="u-full-width" name="posx" id="posx">
               </div>
               <div class="four columns">
-                <label for="posy">Position y :</label>
-                <input type="text" class="u-full-width" name="posy" id="posy">
+                <label for="posz">Largeur (axe Z) :</label>
+                <input type="text" required="required" class="u-full-width" name="posz" id="posz">
               </div>
               <div class="four columns">
-                <label for="posz">Position z :</label>
-                <input type="text" class="u-full-width" name="posz" id="posz">
+                <label for="posy">Hauteur (axe Y) :</label>
+                <input type="text" required="required" class="u-full-width" name="posy" id="posy">
               </div>
               <input type="submit" value="Ajouter" class="button-primary u-pull-right" />
             </div>
           </form>
           <hr>
-          <h6>Supprimer un dispositif</h6>
-          <p>Corbeilles : </p>
+          <h6>Supprimer des dispositifs</h6>
           <div class="tabs-listeSondes">
             <ul id="selectable2">
               <?php
-                $res = nomDispositif();
+                $res = infoDispositif();
                 while($data = $res->fetch(PDO::FETCH_ASSOC)){
-                  echo '<li class="ui-widget-content" data-userid="' . $data['idD'] . '">' . $data['nomD'] . '</li>';
+                  echo '<li class="ui-widget-content" data-userid="' . $data['idD'] . '">' . $data['typeD'] . ' -- ' . $data['nomD'] . '</li>';
                 }
               ?>
             </ul>
@@ -235,15 +234,19 @@
         </div>
         <div>
           <br>
-          <h6>Changement de la fréquence des saisies</h6>
-          <form name="chgFreq" action="admin/arduino.php" method="post">
+          <h6>Ajouter un arduino</h6>
+          <form name="chgFreq" action="admin/ajouterArduino.php" method="post">
             <div class="row">
-              <div class="twelve columns">
-                <label for="freq">Fréquence (en ms):</label> 
-                <input type="text" name="freq" class="u-full-width" id="freq">
+              <div class="six columns">
+                <label for="nom">Nom de l'arduino :</label>
+                <input type="text" class="u-full-width" name="nom" id="nom">
+              </div>
+              <div class="six columns">
+                <label for="nom">Adresse Mac :</label>
+                <input type="text" class="u-full-width" name="address" id="address">
               </div>
             </div>
-            <input type="submit" class="button-primary u-pull-right" value="Valider">
+            <input type="submit" class="button-primary u-pull-right" value="Ajouter">
           </form>
           <div class="u-cf"></div>
         </div>

@@ -1,7 +1,7 @@
 <?php 
   include('GestionBase.php');
 
-  suppressionCorbeille($_POST['id']);
+  suppressionDispositif($_POST['id']);
 
   header("Location: ../administration.php"); 
 ?>
