@@ -1,7 +1,8 @@
 <?php
   include('GestionBase.php');
 
-  suppressionSonde($_POST['id']);
+  suppressionDonnees($_POST['id']);
+  suppressionCapteur($_POST['id']);
 
   header("Location: ../administration.php");
 ?>

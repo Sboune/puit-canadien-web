@@ -1,7 +1,7 @@
-<?php 
+<?php  
   include('GestionBase.php');
 
-  suppressionPuits($_POST['nom']);
-
+  AjouterArduino($_POST['nom'],$_POST['adress']);
+  
   header("Location: ../administration.php");
 ?>

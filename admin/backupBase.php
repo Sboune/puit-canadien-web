@@ -8,7 +8,7 @@
   <?php
     $host = "localhost";
     $user = "root";
-    $pass = "29061994th";
+    $pass = "root";
     $db = "projet_tutore";
 
     if(isset($_POST['action'])) {
@@ -35,38 +35,37 @@
                             'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
                             'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
           $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-        } 
-        if(move_uploaded_file($_FILES['sql']['tmp_name'], $dossier . $fichier)){ 
-        // Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-          echo 'Upload effectué avec succès !<br /><br />';
-          $command = "mysql -u $user -p$pass $db < upload/$fichier";
-          $ligne = system($command);
+          if(move_uploaded_file($_FILES['sql']['tmp_name'], $dossier . $fichier)){
+          // Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+            echo 'Upload effectué avec succès !<br /><br />';
+            $command = "mysql -u $user -p$pass $db < upload/$fichier";
+            $ligne = system($command);
 
-          echo '<br />';
-          echo 'Fichier importé !<br />';
-          echo '<a href="../administration.php">Retour au panel d\'administration</a>';
+            echo '<br />';
+            echo 'Fichier importé !<br />';
+            echo '<a href="../administration.php">Retour au panel d\'administration</a>';
+          } else {
+            echo 'Echec de l\'upload !<br/>';
+            echo '<a href="../administration.php">Retour au panel d\'administration</a>';
+          }
         } else {
-          echo 'Echec de l\'upload !<br/>';
-          echo '<a href="../administration.php">Retour au panel d\'administration</a>';
-        }
-      } else {
           echo $erreur;
           echo '<br /><a href="../administration.php">Retour au panel d\'administration</a>';
+        }
+      } elseif($_POST['action'] == 'export') {
+        /* EXPORT */
+
+        $filename = $_POST['filename'];
+        $backup = $filename.".sql";
+        $command = "/usr/bin/mysqldump --host=$host --user=$user --password=$pass $db > dump/$backup";
+
+        echo "La base est en cours d'export.......<br /><br />";
+        system($command);
+
+        echo "Lien vers le fichier .sql: <a href=\"dump/$backup\">$backup</a><br />";
+        echo '<a href="../administration.php">Retour au panel d\'administration</a>';
       }
-    } elseif($_POST['action'] == 'export') {
-      /* EXPORT */
-
-      $filename = $_POST['filename'];
-      $backup = $filename.".sql";
-      $command = "/usr/bin/mysqldump --host=$host --user=$user --password=$pass $db > dump/$backup";
-
-      echo "La base est en cours d'export.......<br /><br />";
-      system($command);
-
-      echo "Lien vers le fichier .sql: <a href=\"dump/$backup\">$backup</a><br />";
-      echo '<a href="../administration.php">Retour au panel d\'administration</a>';
-    }
-    else {
+    } else {
       header("Location: ../index.php");
     }
   ?>

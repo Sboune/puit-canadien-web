@@ -1,141 +1,92 @@
 <?php
   include("ConnexionBD.php");
-  
-  // renvoie le nom de toute les corbeilles
-  function nomCorbeille() {
+
+  // renvoie le nom de tous les dispositifs
+    function infoDispositif() {
     global $connexion;
-    $result = $connexion->prepare("SELECT Corbeille_id, Nom from Corbeille");
+    $result = $connexion->prepare("SELECT * from dispositif");
     $result->execute();
     return $result;
   }
   
-  // renvoie le nom de tout les puits
-  function nomPuits() {
+  // renvoie les infos de tous les capteurs
+  function infoCapteur() {
     global $connexion;
-    $result = $connexion->prepare("SELECT Nom_puits from Puits");
-    $result->execute();
-    return $result;
-  }
-  
-  // renvoie les infos de toute les sondes 
-  function nomSonde() {
-    global $connexion;
-    $result = $connexion -> prepare("SELECT * from Sonde");
+    $result = $connexion -> prepare("SELECT * from capteur");
     $result -> execute();
     return $result;
   }
-  
-  function AjouterSonde($nom, $niveau, $x, $z) {
+
+function AjouterArduino($nom, $adress) {
+     global $connexion;
+     $result = $connexion -> prepare("INSERT INTO arduino VALUES (NULL, :nom, NULL, :adress)");
+     $result -> bindParam(':nom', $nom);
+     $result -> bindParam(':adress', $adress);
+     $result -> execute();
+   }
+
+  function AjouterCapteur($idD, $nom, $type, $unite, $x, $z, $y) {
     global $connexion;
-  
-    if($niveau == 1) {
-      $y = 320;
-    }
-    if($niveau == 2.5) {
-      $y = 170;
-    }
-    if($niveau == 4) {
-      $y = 20;
-    }
-  
-    $result = $connexion -> prepare("INSERT INTO Sonde VALUES (NULL, :nom, :niveau, :x, :y, :z)");
-    $result -> bindParam(':nom', $nom);
-    $result -> bindParam(':niveau', $niveau);
-    $result -> bindParam(':x', $x);
-    $result -> bindParam(':y', $y);
-    $result -> bindParam(':z', $z);
+    $niveau = (420-$y)/100;
+    $result = $connexion -> prepare("INSERT INTO capteur VALUES (NULL, :idD, :nomC, :typeC, :unite, :nivProfond, :posXC, :posYC, :posZC)");
+    $result -> bindParam(':idD', $idD);
+    $result -> bindParam(':nomC', $nom);
+    $result -> bindParam(':typeC', $type);
+    $result -> bindParam(':unite', $unite);
+    $result -> bindParam(':nivProfond', $niveau);
+    $result -> bindParam(':posXC', $x);
+    $result -> bindParam(':posYC', $y);
+    $result -> bindParam(':posZC', $z);
     $result -> execute();
   }
+
+  function AjouterDispositif($nom, $type, $lieu, $posx, $posy, $posz) {
+     global $connexion;
+     $result = $connexion -> prepare("INSERT INTO dispositif VALUES (NULL, :nom, :type, :lieu, :posx, :posy, :posz)");
+     $result -> bindParam(':nom', $nom);
+     $result -> bindParam(':type', $type);
+     $result -> bindParam(':lieu', $lieu);
+     $result -> bindParam(':posx', $posx);
+     $result -> bindParam(':posy', $posy);
+     $result -> bindParam(':posz', $posz);
+     $result -> execute();
+   }
   
-      // fonction qui renvoie les infos d'une corbeille ou d'un puit en fonction de son nom
-  function rechercheNom($nom) {
-    global $connexion;
-    $result = $connexion -> prepare( "SELECT * FROM Corbeille where Nom = :n");
-    $result -> bindParam(':n', $nom);
-    $result -> execute();
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    if($data) {
-      return $data;
-    }
-    else {  
-      $result = $connexion -> prepare("SELECT * FROM Puits where Nom_puits = :nom");
-      $result -> bindParam(':nom', $nom);
-      $result -> execute();
-      $data = $result->fetch(PDO::FETCH_ASSOC);
-      if($data) {
-        return $data;
-      }
-    }
-    return NULL;
-  }
-  
-      // fonction qui renvoi l'id d'une sonde a partir de son nom
-  function rechercheIdSonde($nom) {
-    global $connexion;
-    $result = $connexion -> prepare("SELECT * FROM Sonde where Nom = :n");
-    $result -> bindParam(':n', $nom);
-    $result->execute();
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    if($data["Sonde_id"]) {
-      return $data["Sonde_id"];
-    }
-    else return NULL;
-  }
-  
-      // associe une sondes a un puit ou une corbeille
-  function AjouterDependance($nom_Sonde, $nom_Corbeille) {
-    global $connexion;
-    $data = rechercheNom($nom_Corbeille);
-    $id = rechercheIdSonde($nom_Sonde);
-    if($data == NULL && $id == NULL) {
-      exit();
-    }
-    elseif($data["Corbeille_id"]) {
-      $req = 'INSERT INTO Appartient_Corbeille VALUES ('.$id.','.$data["Corbeille_id"].')';    
-      $result = $connexion -> prepare($req);
-      $result -> execute();
-    }
-    elseif($data["Nom_puits"]) {
-      $req = 'INSERT INTO Appartient_Puits VALUES ('.$id.',"'.$data["Nom_puits"].'")';
-      $result = $connexion -> prepare($req);
-      $result -> execute();
-    }
-  }
-  
-  function AjouterPuits($nom) {
-    global $connexion;
-    $result = $connexion -> prepare("INSERT INTO Puits VALUES(:n)");
-    $result -> bindParam(':n', $nom);
+  function suppressionDonnees($id) {
+	global $connexion;
+    $result = $connexion -> prepare("DELETE from donnees where idC = :id");
+    $result -> bindParam(':id', $id);
     $result -> execute();
   }
-  
-  function AjouterCorbeille($nom, $posX, $posZ) {
-    global $connexion;        
-    $result = $connexion -> prepare("INSERT INTO Corbeille VALUES(NULL, :nom, :posX , 210 , :posZ )");
-    $result -> bindParam(':nom', $nom);
-    $result -> bindParam(':posX', $posX);
-    $result -> bindParam(':posZ', $posZ);
+
+  function suppressionCapteur($id) {
+    global $connexion;
+    $result = $connexion -> prepare("DELETE from capteur where idC = :id");
+    $result -> bindParam(':id', $id);
     $result -> execute();
   }
-  
-  function suppressionSonde($id) {
+
+  function suppressionDispositif($id) {
     global $connexion;
-    $req = "DELETE from Sonde where Sonde_id = :id";
-    $result = $connexion -> prepare($req);
+    $result = $connexion -> prepare("DELETE from dispositif where idD = :id");
     $result -> bindParam(':id', $id);
     $result -> execute();
   }
   
-  function suppressionPuits($nomPuits) {
-    global $connexion;
-    $result = $connexion -> prepare("DELETE from Puits where Nom_puits = :nom");
-    $result -> bindParam(':nom', $nomPuits);
-    $result -> execute();
-  }
-  
-  function suppressionCorbeille($id) {
-    global $connexion;
-    $result = $connexion -> prepare("DELETE from Corbeille where Corbeille_id = :id");
+  function suppressionDispositifCapteur($id) {
+	global $connexion;
+	$resultCapteur = $connexion -> prepare("SELECT idC from capteur where idD = :id");
+	$resultCapteur -> bindParam('id', $id);
+	$resultCapteur -> execute();
+	$supprDonnee = $connexion -> prepare("DELETE from donnees where idC = :idc");
+	while($data = $resultCapteur->fetch(PDO::FETCH_ASSOC)){
+		$supprDonnee -> bindParam('idc', $data['idC']);
+		$supprDonnee -> execute();
+	}
+	$supprCapt = $connexion -> prepare("DELETE from capteur where idD = :id");
+    $supprCapt -> bindParam(':id', $id);
+    $supprCapt-> execute();
+    $result = $connexion -> prepare("DELETE from dispositif where idD = :id");
     $result -> bindParam(':id', $id);
     $result -> execute();
   }
