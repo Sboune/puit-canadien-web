@@ -18,6 +18,11 @@
   <script type="text/javascript" src="assets/vendor/tabs/js/easyResponsiveTabs.js"></script>
   <link rel="stylesheet" href="assets/vendor/tabs/css/easy-responsive-tabs.css">
 
+  <style>
+    .ui-selecting { background: #FECA40; }
+    .ui-selected { background: #F39814; color: white; }
+  </style>
+
   <script type="text/javascript">
     $(document).ready(function () { 
       $(function() {
@@ -37,7 +42,11 @@
     $('#supprDispositif').click(function () {
       $('#selectable2 .ui-widget-content.ui-selected').each(function(index) {
         var tmp = $(this).attr('data-userid');
-        $.post('admin/supprDispositif.php', { id : tmp })
+        var all = 'non';
+        if (document.getElementById('tout').checked) {
+		  all = 'oui';
+	    }
+        $.post('admin/supprDispositif.php', { id : tmp, tout : all })
           .done(function (data) { location.reload(); })
           .fail(function (data) {});
       });
@@ -201,6 +210,7 @@
               ?>
             </ul>
           </div>
+          <input type="checkbox" name="tout" id="tout" value="true" /> Supprimer les capteurs liés aux dispositifs.
           <button type="button" class="button-primary u-pull-right" id="supprDispositif">Supprimer</button>
           <div class="u-cf"></div>
         </div>

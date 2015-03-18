@@ -66,9 +66,26 @@ function AjouterArduino($nom, $adress) {
     $result -> execute();
   }
 
-  
   function suppressionDispositif($id) {
     global $connexion;
+    $result = $connexion -> prepare("DELETE from dispositif where idD = :id");
+    $result -> bindParam(':id', $id);
+    $result -> execute();
+  }
+  
+  function suppressionDispositifCapteur($id) {
+	global $connexion;
+	$resultCapteur = $connexion -> prepare("SELECT idC from capteur where idD = :id");
+	$resultCapteur -> bindParam('id', $id);
+	$resultCapteur -> execute();
+	$supprDonnee = $connexion -> prepare("DELETE from donnees where idC = :idc");
+	while($data = $resultCapteur->fetch(PDO::FETCH_ASSOC)){
+		$supprDonnee -> bindParam('idc', $data['idC']);
+		$supprDonnee -> execute();
+	}
+	$supprCapt = $connexion -> prepare("DELETE from capteur where idD = :id");
+    $supprCapt -> bindParam(':id', $id);
+    $supprCapt-> execute();
     $result = $connexion -> prepare("DELETE from dispositif where idD = :id");
     $result -> bindParam(':id', $id);
     $result -> execute();
