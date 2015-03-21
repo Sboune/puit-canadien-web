@@ -20,8 +20,9 @@ require_once(__dir__."/../../admin/ConnexionBD.php");
 $connexion->exec("SET time_zone = '+00:00'");
 // set some utility variables
 $range = $end - $start;
-$startTime = gmstrftime('%Y-%m-%d %H:%M:%S', $start / 1000);
-$endTime = gmstrftime('%Y-%m-%d %H:%M:%S', $end / 1000);
+$startTime = strftime('%Y-%m-%d %H:%M:%S', $start / 1000);
+$endTime = strftime('%Y-%m-%d %H:%M:%S', $end / 1000);
+// echo $startTime;
 // find the right table
 // two days range loads minute data
 
@@ -95,6 +96,7 @@ foreach ($result as $row) {
 }
 // print it
 header('Content-Type: text/javascript');
+echo "/*$table*/";
 echo "/* console.log(' start = $start, end = $end, startTime = $startTime, endTime = $endTime '); */";
 echo $callback ."([\n" . join(",\n", $rows) ."\n]);";
 
