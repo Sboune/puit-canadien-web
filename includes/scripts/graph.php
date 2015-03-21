@@ -61,7 +61,7 @@ function addSerie(id, name) {
     // On ajoute les données de la sonde sélectionnée sans changer les extremes
     $.getJSON('includes/scripts/getDataChart.php?id=' + id 
               + '&start=' + Math.round(chart.xAxis[0].getExtremes().min - (60000*60)) 
-              + '&end=' + Math.round(chart.xAxis[0].getExtremes().max - (60000*60)) 
+              + '&end=' + Math.round(chart.xAxis[0].getExtremes().max + (60000*60)) 
               + '&callback=?', function (data) {
       var nav = chart.get('highcharts-navigator-series');
       chart.addSeries({
@@ -139,7 +139,7 @@ function afterSetExtremes(e) {
     chart.showLoading('Chargement des données...');
     $.getJSON('includes/scripts/getDataChart.php?id=' + $(this).attr("value")
               + '&start=' + Math.round(e.min - (60000*60)) 
-              + '&end=' + Math.round(e.max - (60000*60)) 
+              + '&end=' + Math.round(e.max + (60000*60)) 
               + '&callback=?', function (data) {
       for (var i = 0; i < chart.series.length; i++) {
         if(chart.series[i].name.toLowerCase() == name.toLowerCase()){
