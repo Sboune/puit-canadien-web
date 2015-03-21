@@ -18,6 +18,7 @@
     <script src="assets/vendor/highcharts/exporting.js"></script>
     <script src="assets/js/datepicker.js"></script>
     <script src="assets/js/datepicker.fr.js"></script>
+    <script src="assets/js/utils.js"></script>
 
   </head>
   <body>
@@ -53,16 +54,16 @@
                 <div class="row input-daterange" id="datepicker">
                   <div class="one-half column">
                     <label for="dateDebut">Date de début</label>
-                    <input class="u-full-width input-sm" value="10/01/2015" type="text" id="dateDebut" name="dateDebut" size="18" name="start" >
+                    <input class="u-full-width input-sm" value="20/11/2014" type="text" id="dateDebut" name="dateDebut" size="18" name="start" >
                   </div>
                   <div class="one-half column">
                     <label for="dateFin">Date de fin</label>
-                    <input class="u-full-width input-sm" value="16/01/2015" type="text" id="dateFin" name="dateFin" size="18" name="end" >
+                    <input class="u-full-width input-sm" value="01/05/2015" type="text" id="dateFin" name="dateFin" size="18" name="end" >
                   </div>
                 </div>
                 <div class="row">
                   <div class="twelve columns">
-                    <input class="button-primary u-full-width" type="submit" name="generer" value="Génerer">  
+                    <input class="button-primary u-full-width" type="submit" name="generer" value="Génerer" id="sendFormButton">  
                   </div>
                 </div>
               </form>
@@ -71,10 +72,11 @@
         </section>
 
         <section>
-          <h5 class="section-header">Graphique des températures</h5>
+          <h5 class="section-header" id="chartsection">Graphique des températures</h5>
           <div class="box">
             <div class="box-section">
               <div id="chart"></div>
+              <h6 id="no-selection" style="display: none;">Aucun capteur sélectionné</h6>
             </div>
           </div>
         </section>
@@ -113,6 +115,14 @@
 
       $(document).ready(function() {
         $('#iframe').height($('#iframe').width() / ($(window).width() / $(window).height()));
+
+        $("#sendFormButton").click(function(event) {
+          event.preventDefault();
+          $(this).blur();
+          changeExtremes(0, false);
+          scrollToAnchor(chartsection);
+          return false;
+        });
       });
 
       $('#datepicker').datepicker({
@@ -120,7 +130,13 @@
         weekStart: 1,
         todayBtn: "linked",
         language: "fr"
-      });
+      }).on("changeDate", function(e){
+          if($(e.target).is("#dateDebut")) {
+            changeExtremes(e.date, true);
+          } else {
+            changeExtremes(e.date, false);
+          }
+        });
 
       $('.sonde1-canevas').each(function(index) {
         var canvas = this;
