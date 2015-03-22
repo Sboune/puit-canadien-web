@@ -1,6 +1,17 @@
 <?php
   require_once __DIR__.'/../../admin/ConnexionBD.php';
   
+  $couleursParDispositifs = array('1' => '255, 255, 255', // Puit
+                                  '2' => '235, 151, 78', // REF
+                                  '3' => '31, 58, 147', // Air
+                                  '4' => '255, 255, 255', // Tube
+                                  '5' => '244, 208, 63', // VMC
+                                  '6' => '214, 69, 65', // A
+                                  '7' => '42, 187, 155', // B
+                                  '8' => '30, 144, 245', // C
+                                  '9' => '216, 191, 216', // D
+                                  '12' => '42, 187, 155'); // E
+  
   global $connexion;
   $stmt = $connexion -> prepare("SELECT * FROM capteur where idD < 15");
   $stmt -> execute();
@@ -13,30 +24,9 @@
     $z = $q['posZC'];
     $nom = $q['nomC'];
     $id = $q['idC'];
-    if($x != 0){
-      if($nom[0] == 'A'){
-        if($nom[1] == 'i')
-          echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",255,255,255);\n";
-        else
-          echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",255,0,0);\n";
-      } 
-      elseif($nom[0] == 'B')
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",0,255,0);\n";
-      elseif($nom[0] == 'C')  
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",0,0,255);\n";
-      elseif($nom[0] == 'D')  
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",255,0,255);\n";
-      elseif($nom[0] == 'E')
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",205,85,0);\n";
-      elseif($nom[0] == 'R')
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",125,125,125);\n";
-      elseif($nom[0] == 'T')
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",255,255,255);\n";
-      elseif($nom[0] == 'V')
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",255,255,0);\n";
-      else
-        echo "placer_capteur('".$nom."',". $id .",".$x.",".$y.",".$z.",0,0,0);\n";
-    }
+
+    echo "placer_capteur('".$nom."',". $id ."," . $q['idD'] . ",".$x.",".$y.",".$z.",". $couleursParDispositifs[$q['idD']] .");\n";
+
   }
 
   echo "</script>";

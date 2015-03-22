@@ -22,7 +22,7 @@ function getDateFin() {
   return new Date(dateFinA, dateFinM, dateFinJ, 0,0,0,0);
 }
 
-function addSerie(id, name) {
+function addSerie(id, name, couleur) {
   addCaptTab(id);
   var chart = $('#chart').highcharts();
 
@@ -52,7 +52,8 @@ function addSerie(id, name) {
       var nav = chart.get('highcharts-navigator-series');
       chart.addSeries({
         name : name,
-        data: data
+        data: data,
+        color: couleur
       });
       chart.xAxis[0].setExtremes(dateD.getTime(), dateF.getTime());
       nav.setData(data);
@@ -67,7 +68,8 @@ function addSerie(id, name) {
       var nav = chart.get('highcharts-navigator-series');
       chart.addSeries({
         name : name,
-        data: data
+        data: data,
+        color: couleur
       });
     });
   }

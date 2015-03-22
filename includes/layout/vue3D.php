@@ -235,11 +235,11 @@
             var sondecolor = selected[intersects[0].object.name];
             intersects[0].object.material = sondecolor[0];
             delete selected[intersects[0].object.name];
-            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC);
+            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           } else {
             selected[intersects[0].object.name] = [intersects[0].object.material];
             intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#1D1D1D"});
-            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC);
+            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           }
         }
       }
@@ -270,12 +270,12 @@
         }
       }
 
-      function notifySondeSelected(name, id) {
-        window.parent.postMessage("selected:" + name + "," + id, "*");
+      function notifySondeSelected(name, id, idD) {
+        window.parent.postMessage("selected:" + name + "," + id + "," + idD, "*");
       }
 
-      function notifySondeDeleted(name, id) {
-        window.parent.postMessage("deleted:" + name + "," + id, "*");
+      function notifySondeDeleted(name, id, idD) {
+        window.parent.postMessage("deleted:" + name + "," + id + "," + idD, "*");
       }
 
       function reset() {
