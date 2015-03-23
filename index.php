@@ -98,8 +98,7 @@
                       <th>ecart-type</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php getInfoTableau() ?>
+                  <tbody id="tabStat">
                   </tbody>
                 </table>
               </table>
@@ -177,6 +176,7 @@
           addSerie(match[3],match[2]);
         } else if (match[1]=="deleted") {
           removeSerie(match[2]);
+          removeCaptTab(match[3]);
           // on supprimer les elt qui ont l'attribut sonde-id égal à l'id du message
           $('#selected-sonde > span[sonde-id="'+match[3]+'"]').remove();
           $('#generate-graph-form > input[type="hidden"][value="'+match[3]+'"]').remove();
@@ -201,7 +201,8 @@
       function resetIframe() {
         $("#iframe")[0].contentWindow.reset();
       }
-
+        refreshTab();
+      
     </script>
   </body>
 </html>
