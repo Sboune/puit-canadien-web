@@ -63,6 +63,73 @@
 
 
 ?>
+<script type="text/javascript">
+  
+  function refreshTab(){
+    var chart = $('#chart').highcharts();
+    $("#tabStat").html("");
+    if(!captParDefaut){
+      $("#selected-sonde .sonde-selected").each(function(){
+        var id = $(this).attr("sonde-id");
+        $.getJSON('includes/scripts/getDataStat.php?id='+ id 
+                + '&start=' + Math.round(chart.xAxis[0].getExtremes().min) 
+                + '&end=' + Math.round(chart.xAxis[0].getExtremes().max)
+                  + '&callback=?', function (data) {
+                  $("#tabStat").append(
+                     "<tr>\n"
+                    +"<td><span class=\"sonde-selected\" sonde-id="+id+"><span class=\"sonde-color\" style=\"background-color: #27636D;\"></span> "+data[0][0]+"</span>\n"
+                    +"  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+                    +"</tr>\n");
+
+                  });
+      });
+    }else{
+      $.each([1,7,10,16,19,22], function(i , l){
+        var id = l;
+        $.getJSON('includes/scripts/getDataStat.php?id='+ id 
+                + '&start=' + Math.round(chart.xAxis[0].getExtremes().min) 
+                + '&end=' + Math.round(chart.xAxis[0].getExtremes().max)
+                  + '&callback=?', function (data) {
+                  $("#tabStat").append(
+                     "<tr>\n"
+                    +"<td><span class=\"sonde-selected\" sonde-id="+id+"><span class=\"sonde-color\" style=\"background-color: #27636D;\"></span> "+data[0][0]+"</span>\n"
+                    +"  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+                    +"  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+                    +"</tr>\n");
+
+                  });
+      });
+    }
+      
+  }
+
+  function addCaptTab(id){
+    var chart = $('#chart').highcharts();
+    $.getJSON('includes/scripts/getDataStat.php?id='+ id 
+              + '&start=' + Math.round(chart.xAxis[0].getExtremes().min) 
+              + '&end=' + Math.round(chart.xAxis[0].getExtremes().max)
+                + '&callback=?', function (data) {
+                $("#tabStat").append(
+                   "<tr>\n"
+                  +"<td><span class=\"sonde-selected\" sonde-id="+id+"><span class=\"sonde-color\" style=\"background-color: #27636D;\"></span> "+data[0][0]+"</span>\n"
+                  +"  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+                  +"  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+                  +"  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+                  +"  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+                  +"</tr>\n");
+
+                });
+  }
+
+  function removeCaptTab(id) {
+    $("tr td .sonde-selected[sonde-id="+id+"]").parent().parent().remove();
+  }
+  
 
 
-
+</script>

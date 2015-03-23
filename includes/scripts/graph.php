@@ -23,6 +23,7 @@ function getDateFin() {
 }
 
 function addSerie(id, name) {
+  addCaptTab(id);
   var chart = $('#chart').highcharts();
 
   chart.showLoading('Chargement des données...');
@@ -75,6 +76,7 @@ function addSerie(id, name) {
 }
 
 function changeExtremes(date, isDebut) {
+  refreshTab();
   var chart = $('#chart').highcharts();
   var nav = chart.get('highcharts-navigator-series');
   var dateD, dateF;
@@ -130,6 +132,7 @@ function removeSerie(data) {
 }
 
 function afterSetExtremes(e) {
+  refreshTab();
   var chart = $('#chart').highcharts();
   var nav = chart.get('highcharts-navigator-series');
 
