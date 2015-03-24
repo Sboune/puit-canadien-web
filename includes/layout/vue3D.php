@@ -231,13 +231,13 @@
         var intersects = raycaster.intersectObjects(targetList);
         if (intersects.length > 0) {
           // si la sonde est déjà sélectionnée
-          if (intersects[0].object.name in selected) {
-            var sondecolor = selected[intersects[0].object.name];
+          if (intersects[0].object.idC in selected) {
+            var sondecolor = selected[intersects[0].object.idC];
             intersects[0].object.material = sondecolor[0];
-            delete selected[intersects[0].object.name];
+            delete selected[intersects[0].object.idC];
             notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           } else {
-            selected[intersects[0].object.name] = [intersects[0].object.material];
+            selected[intersects[0].object.idC] = [intersects[0].object.material];
             intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#1D1D1D"});
             notifySondeSelected(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           }

@@ -80,7 +80,7 @@
         scene.add(GTE2); 
 
         /* Chemin côté */
-        var textureChemin = new THREE.MeshBasicMaterial({color:"#CFD19C", side: THREE.DoubleSide});
+        var textureChemin = new THREE.MeshBasicMaterial({color:"#dadada", side: THREE.DoubleSide});
         var cheminGeometry = new THREE.PlaneBufferGeometry(100, 500);
         var chemin = new THREE.Mesh(cheminGeometry, textureChemin);
         chemin.position.set(450,0,0);
@@ -124,7 +124,7 @@
         scene.add(fond3);
 
         /* Fond horizontal */
-        var fondTexture2 = new THREE.MeshBasicMaterial({color:"#8B744B", side: THREE.DoubleSide});
+        var fondTexture2 = new THREE.MeshBasicMaterial({color:"#8B705A", side: THREE.DoubleSide});
         var fondGeometry3 = new THREE.PlaneBufferGeometry(800,500);
         var fond4 = new THREE.Mesh(fondGeometry3, fondTexture2);
         fond4.position.set(0,-1220,0);
@@ -246,15 +246,15 @@
         var intersects = raycaster.intersectObjects(targetList);
         if (intersects.length > 0) {
           // si la sonde est déjà sélectionnée
-          if (intersects[0].object.name in selected) {
-            var sondecolor = selected[intersects[0].object.name];
+          if (intersects[0].object.idC in selected) {
+            var sondecolor = selected[intersects[0].object.idC];
             intersects[0].object.material = sondecolor[0];
-            delete selected[intersects[0].object.name];
-            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC);
+            delete selected[intersects[0].object.idC];
+            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           } else {
-            selected[intersects[0].object.name] = [intersects[0].object.material];
-            intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#DD2A2F"});
-            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC);
+            selected[intersects[0].object.idC] = [intersects[0].object.material];
+            intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#1D1D1D"});
+            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           }
         }
       }
@@ -285,12 +285,12 @@
         }
       }
 
-      function notifySondeSelected(name, id) {
-        window.parent.postMessage("selected:" + name + "," + id, "*");
+      function notifySondeSelected(name, id, idD) {
+        window.parent.postMessage("selected:" + name + "," + id + "," + idD, "*");
       }
 
-      function notifySondeDeleted(name, id) {
-        window.parent.postMessage("deleted:" + name + "," + id, "*");
+      function notifySondeDeleted(name, id, idD) {
+        window.parent.postMessage("deleted:" + name + "," + id + "," + idD, "*");
       }
 
       function reset() {

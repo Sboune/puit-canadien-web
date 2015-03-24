@@ -53,17 +53,22 @@
               </div>
             </div>
             <hr>
+            <?php
+              $day = date('w');
+              $week_start = date('d/m/Y', strtotime('-'.($day - 1).' days'));
+              $week_end = date('d/m/Y', strtotime('+'.(7-$day).' days'));
+            ?>
             <div class="box-section">
               <form action="index.php" id="generate-graph-form" method="POST">
                 <h6>Afficher sur une période de :</h6>
                 <div class="row input-daterange" id="datepicker">
                   <div class="one-half column">
                     <label for="dateDebut">Date de début</label>
-                    <input class="u-full-width input-sm" value="20/11/2014" type="text" id="dateDebut" name="dateDebut" size="18" name="start" >
+                    <input class="u-full-width input-sm" value="<?php echo $week_start; ?>" type="text" id="dateDebut" name="dateDebut" size="18" name="start" >
                   </div>
                   <div class="one-half column">
                     <label for="dateFin">Date de fin</label>
-                    <input class="u-full-width input-sm" value="01/05/2015" type="text" id="dateFin" name="dateFin" size="18" name="end" >
+                    <input class="u-full-width input-sm" value="<?php echo $week_end; ?>" type="text" id="dateFin" name="dateFin" size="18" name="end" >
                   </div>
                 </div>
                 <div class="row">
@@ -118,7 +123,11 @@
     <script>
 
       $(document).ready(function() {
-          // listener du message de l'iframe
+
+        // $("#dateDebut").val(firstday.getDate() + '/' + (firstday.getMonth() + 1) + '/' +  firstday.getFullYear());
+        // $("#dateFin").val(lastday.getDate() + '/' + (lastday.getMonth() + 1) + '/' +  lastday.getFullYear());
+      
+        // listener du message de l'iframe
         if (window.addEventListener) {
           window.addEventListener('message', receiveMessage, false);
         } else if (window.attachEvent) { // pour IE8
@@ -143,12 +152,32 @@
           $(this).addClass('active');
           
           var source = $('#iframe').attr('src');
+          $("input[name='capteursId[]']").each(function(index) {
+            removeSerie($(this).attr('sonde-name'));
+            removeCaptTab($(this).val());
+
+            // on supprimer les elt qui ont l'attribut sonde-id égal à l'id du message
+            $('#selected-sonde > span[sonde-id="'+$(this).val()+'"]').remove();
+            $(this).remove();
+            // si le div est vide, on remet le texte "Aucune sonde sélectionnée."
+            if( !$.trim( $("#selected-sonde").html() ).length ){
+              $("#selected-sonde").append('Aucune sonde sélectionnée.');
+            }
+          });
+          for(var key in graphColors) {
+            for(color in graphColors[key]) {
+              graphColors[key][color] = -1;
+            }
+          }
           if (source == "includes/layout/vue3D.php") {
             $('#iframe').attr('src','includes/layout/vue3D-2.php');
           } else {
             $('#iframe').attr('src','includes/layout/vue3D.php'); 
           }
         });
+
+        refreshTab();
+
       });
 
       $('#datepicker').datepicker({
@@ -163,6 +192,14 @@
             changeExtremes(e.date, false);
           }
         });
+
+      var curr = new Date;
+        var firstday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+        var lastday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
+
+        console.log(firstday.getDate() + '/' + (firstday.getMonth() + 1) + '/' +  firstday.getFullYear());
+        console.log(lastday.getDate() + '/' + (lastday.getMonth() + 1) + '/' +  lastday.getFullYear());
+      $('#datepicker').datepicker('setUTCDate', firstday);
 
       $('.sonde1-canevas').each(function(index) {
         var canvas = this;
@@ -253,6 +290,26 @@
                           "#86E2D5" : -1,
                           "#C8F7C5" : -1,
                           "#1BBC9B" : -1
+                        },
+                        "16" : {
+                          "#FF4500" : -1,
+                          "#FF8C00" : -1,
+                          "#F4A460" : -1,
+                          "#F9690E" : -1,
+                          "#E87E04" : -1,
+                          "#D35400" : -1,
+                          "#E67E22" : -1,
+                          "#EB9532" : -1
+                        },
+                        "15" : {
+                          "#87CEEB" : -1,
+                          "#00BFFF" : -1,
+                          "#1E90FF" : -1,
+                          "#0000FF" : -1,
+                          "#00008B" : -1,
+                          "#4169E1" : -1,
+                          "#6495ED" : -1,
+                          "#2574A9" : -1
                         }
     }
 
@@ -302,7 +359,6 @@
       function resetIframe() {
         $("#iframe")[0].contentWindow.reset();
       }
-        refreshTab();
       
     </script>
   </body>
