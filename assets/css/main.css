@@ -797,6 +797,9 @@ html, body {
   height: 10px;
   display: inline-block; }
 
+.action-button {
+  margin-left: 1.5rem; }
+
 /*------------------------------------*\
     #FORM
 \*------------------------------------*/

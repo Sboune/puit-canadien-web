@@ -282,6 +282,14 @@
         controls.reset();
       }
 
+      function zoomPlus(){
+        controls.dollyIn(1.2);
+      }
+
+      function zoomMoins(){
+        controls.dollyOut(1.2);
+      }
+
     </script>
 
     <script src="../../assets/js/placer_corbeille.js"></script>

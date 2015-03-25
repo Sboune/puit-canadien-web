@@ -42,9 +42,12 @@
                 <div class="switcher switcher-right">Vue 2</div>
               </div>
               <p>Utilisez la vue 3D pour sélectionner des sondes</p>
-              <button type="button" id="reset" onclick="resetIframe()"> Reset </button>
               <iframe id="iframe" class="u-full-width" src="includes/layout/vue3D.php"></iframe>
+              <button type="button" class="u-pull-right action-button" id="reset" onclick="resetIframe()">Reset</button>
+              <button type="button" class="u-pull-right action-button" id="zoomPlus" onclick="zoomIframe()">Zoom +</button>
+              <button type="button" class="u-pull-right action-button" id="zoomMoins" onclick="dezoomIframe()">Zoom -</button>
             </div>
+            <div class="u-cf"></div>
             <hr>
             <div class="box-section">
               <h6>Sondes sélectionnées : </h6>
@@ -359,6 +362,14 @@
       function resetIframe() {
         $("#iframe")[0].contentWindow.reset();
       }
+
+      function zoomIframe(){
+        $("#iframe")[0].contentWindow.zoomPlus();
+      }
+
+      function dezoomIframe(){
+        $("#iframe")[0].contentWindow.zoomMoins();
+      } 
       
     </script>
   </body>
