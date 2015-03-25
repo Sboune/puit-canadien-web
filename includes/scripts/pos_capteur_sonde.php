@@ -16,10 +16,10 @@
     $idD = $c['idD'];
 
     if($idD == 15){
-      echo "placer_capteur_sonde('".$nom."',".$idC.",".$x.",".$y.",".$z.",0,255,0);\n";
+      echo "placer_capteur_sonde('".$nom."',".$idC."," . $idD . ",".$x.",".$y.",".$z.",0,191,255);\n";
     }
     else{
-      echo "placer_capteur_sonde('".$nom."',".$idC.",".$x.",".$y.",".$z.",0,255,255);\n";
+      echo "placer_capteur_sonde('".$nom."',".$idC."," . $idD . ",".$x.",".$y.",".$z.",255,165,0);\n";
     }
   }
 

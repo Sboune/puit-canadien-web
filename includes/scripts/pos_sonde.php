@@ -15,4 +15,4 @@
     echo "placer_sonde('".$nom."',".$x.",".$y.",".$z.");\n";
   }
   echo "</script>";
- ?>
+?>

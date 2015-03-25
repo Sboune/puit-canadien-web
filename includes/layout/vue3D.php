@@ -61,7 +61,7 @@
         scene = new THREE.Scene();
 
         var light = new THREE.PointLight(0xffffff);
-        light.position.set(0, 250, 1000);
+        light.position.set(0, 200, 1150);
         scene.add(light);
 
         var floorGeometryArr = new THREE.PlaneBufferGeometry (1800/2, 420/2);
@@ -96,7 +96,7 @@
       
         // sol
         var groundMaterial = new THREE.MeshBasicMaterial({color:"rgb(127,221,76)", side: THREE.DoubleSide, transparent: true, opacity: 0.5}); //vert
-        var floorMaterial = new THREE.MeshBasicMaterial({color:"#8B744B", side: THREE.DoubleSide}); //marron
+        var floorMaterial = new THREE.MeshBasicMaterial({color:"#8B705A", side: THREE.DoubleSide}); //marron
         var floorTransMaterial = new THREE.MeshBasicMaterial({color:"#8B806C", side: THREE.DoubleSide}); //marron      transparent
         var floor = new THREE.Mesh(floorGeometry, groundMaterial);
         var fond = new THREE.Mesh(floorGeometry, floorMaterial);
@@ -159,7 +159,7 @@
         scene.add(coin8);
       
         /* VMC */
-        var vmcMaterial = new THREE.MeshBasicMaterial({color: 0x111111, side:THREE.DoubleSide, transparent:true, opacity:0.5})
+        var vmcMaterial = new THREE.MeshBasicMaterial({color: 0xdadada, side:THREE.DoubleSide, transparent:true, opacity:0.8})
         var vmcGeometry = new THREE.PlaneBufferGeometry (200/2, 200/2, 6/2, 6/2);
         var vmch = new THREE.Mesh(vmcGeometry, vmcMaterial);
         vmch.position.set(-1000/2, 840/2-XOFFSET, 500/2);
@@ -231,15 +231,15 @@
         var intersects = raycaster.intersectObjects(targetList);
         if (intersects.length > 0) {
           // si la sonde est déjà sélectionnée
-          if (intersects[0].object.name in selected) {
-            var sondecolor = selected[intersects[0].object.name];
+          if (intersects[0].object.idC in selected) {
+            var sondecolor = selected[intersects[0].object.idC];
             intersects[0].object.material = sondecolor[0];
-            delete selected[intersects[0].object.name];
-            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC);
+            delete selected[intersects[0].object.idC];
+            notifySondeDeleted(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           } else {
-            selected[intersects[0].object.name] = [intersects[0].object.material];
-            intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#DD2A2F"});
-            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC);
+            selected[intersects[0].object.idC] = [intersects[0].object.material];
+            intersects[0].object.material = new THREE.MeshBasicMaterial({color:"#1D1D1D"});
+            notifySondeSelected(intersects[0].object.name, intersects[0].object.idC, intersects[0].object.idD);
           }
         }
       }
@@ -270,16 +270,24 @@
         }
       }
 
-      function notifySondeSelected(name, id) {
-        window.parent.postMessage("selected:" + name + "," + id, "*");
+      function notifySondeSelected(name, id, idD) {
+        window.parent.postMessage("selected:" + name + "," + id + "," + idD, "*");
       }
 
-      function notifySondeDeleted(name, id) {
-        window.parent.postMessage("deleted:" + name + "," + id, "*");
+      function notifySondeDeleted(name, id, idD) {
+        window.parent.postMessage("deleted:" + name + "," + id + "," + idD, "*");
       }
 
       function reset() {
         controls.reset();
+      }
+
+      function zoomPlus(){
+        controls.dollyIn(1.2);
+      }
+
+      function zoomMoins(){
+        controls.dollyOut(1.2);
       }
 
     </script>

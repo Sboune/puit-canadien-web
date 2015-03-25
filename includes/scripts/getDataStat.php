@@ -34,11 +34,11 @@ $sql = "select ROUND(min(valeur), 2), ROUND(max(valeur), 2), ROUND(avg(valeur), 
                                . $connexion->quote($startTime) ." and date <= ". $connexion->quote($endTime) ." and idC = ". $connexion->quote($_GET["id"]);
 $result = $connexion->query($sql)->fetch();
 $rows = [];
-    echo "/*$idC*/";
-    echo "/*$result[0]*/";
-    echo "/*$result[1]*/";
-    echo "/*$result[2]*/";
-    echo "/*$result[3]*/";
+    // echo "/*$idC*/";
+    // echo "/*$result[0]*/";
+    // echo "/*$result[1]*/";
+    // echo "/*$result[2]*/";
+    // echo "/*$result[3]*/";
 
 
     $rows[] = "[ '".$idC."', ".$result[0].", ".$result[1].", ".$result[2].", ".$result[3].", '".$unite."' ]";
@@ -47,7 +47,7 @@ $rows = [];
 
 // print it
 header('Content-Type: text/javascript');
-echo "/* console.log(' start = $start, end = $end, startTime = $startTime, endTime = $endTime '); */";
+// echo "/* console.log(' start = $start, end = $end, startTime = $startTime, endTime = $endTime '); */";
 echo $callback ."([\n" . join(",\n", $rows) ."\n]);";
 
 
