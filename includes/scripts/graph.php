@@ -176,7 +176,21 @@ var dateF = getDateFin();
 
 <?php } ?>
 
-
+Highcharts.setOptions({
+  lang: {
+    months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+    weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    shortMonths : ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin',  'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'],
+    contextButtonTitle: "Exporter le graphe",
+    downloadJPEG: "Télécharger en JPEG",
+    downloadPDF: "Télécharger en PDF",
+    downloadPNG: "Télécharger en PNG",
+    downloadSVG: "Télécharger en SVG",
+    printChart: "Imprimer le graphique",
+    loading: "Chargement",
+    noData: "Aucune donnée"
+  }
+});
 
 
 var oppppt = {
@@ -199,7 +213,7 @@ var oppppt = {
                     }, {
                         type: 'day',
                         count: 1,
-                        text: '1d'
+                        text: '1j'
                     }, {
                         type: 'month',
                         count: 1,
@@ -207,13 +221,32 @@ var oppppt = {
                     }, {
                         type: 'year',
                         count: 1,
-                        text: '1y'
+                        text: '1a'
                     }, {
                         type: 'all',
-                        text: 'All'
+                        text: 'Tout'
                     }],
                     inputEnabled: false, // it supports only days
                     selected : 4 // all
+                },
+                tooltip: {
+                  pointFormat: '<span style="color:{series.color}">●</span> {series.name}: <b>{point.y:,.2f}°C</b><br>'
+                },
+                plotOptions : {
+                  series : {
+                    dataGrouping : {
+                      dateTimeLabelFormats : {
+                        millisecond: ['%A %e %b %H:%M:%S.%L', '%A %e %b %H:%M:%S.%L', '-%H:%M:%S.%L'],
+                        second: ['%A %e %b %H:%M:%S', '%A %e %b %H:%M:%S', '-%H:%M:%S'],
+                        minute: ['%A %e %b %H:%M', '%A %e %b %H:%M', '-%H:%M'],
+                        hour: ['%A %e %b %H:%M', '%A %e %b %H:%M', '-%H:%M'],
+                        day: ['%A %e %b %Y', '%A %e %b', '-%A %e %b %Y'],
+                        week: ['Semaine du %A %e %b %Y', '%A %e %b', '-%A %e %b %Y'],
+                        month: ['%B %Y', '%B', '-%B %Y'],
+                        year: ['%Y', '%Y', '-%Y']
+                      }
+                    }
+                  }
                 },
                 xAxis : {
                     events : {

@@ -8,6 +8,7 @@
       include("includes/scripts/generer_graph.php");
     ?>
     <link rel="stylesheet" href="assets/css/datepicker.css">
+    <link rel="stylesheet" href="assets/css/sortable-theme-bootstrap.css" />
 
     <!-- SCRIPTS
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -19,6 +20,7 @@
     <script src="assets/js/datepicker.js"></script>
     <script src="assets/js/datepicker.fr.js"></script>
     <script src="assets/js/utils.js"></script>
+    <script src="assets/js/sortable.min.js" ></script>
 
   </head>
   <body>
@@ -95,25 +97,21 @@
         </section>
 
         <section>
-        <link rel="stylesheet" href="assets/css/sortable-theme-bootstrap.css" />
-        <script src="assets/js/sortable.min.js" ></script>
           <h5 class="section-header">Statistiques</h5>
           <div class="box">
             <div class="box-section">
-              <table class="u-full-width">
-                <table class="sortable-theme-bootstrap" data-sortable>
-                  <thead>
-                    <tr>
-                      <th>Sonde</th>
-                      <th>min</th>
-                      <th>max</th>
-                      <th>moy</th>
-                      <th>ecart-type</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tabStat">
-                  </tbody>
-                </table>
+              <table class="sortable-theme-bootstrap u-full-width" data-sortable>
+                <thead>
+                  <tr>
+                    <th>Sonde</th>
+                    <th>min</th>
+                    <th>max</th>
+                    <th>moy</th>
+                    <th>ecart-type</th>
+                  </tr>
+                </thead>
+                <tbody id="tabStat">
+                </tbody>
               </table>
             </div>
           </div>
