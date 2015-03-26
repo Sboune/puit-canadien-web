@@ -20,7 +20,7 @@
     <script src="assets/js/datepicker.js"></script>
     <script src="assets/js/datepicker.fr.js"></script>
     <script src="assets/js/utils.js"></script>
-    <script src="assets/js/sortable.min.js" ></script>
+    <script src="assets/js/jquery.sortable.js" ></script>
 
   </head>
   <body>
@@ -100,17 +100,17 @@
           <h5 class="section-header">Statistiques</h5>
           <div class="box">
             <div class="box-section">
-              <table class="sortable-theme-bootstrap u-full-width" data-sortable>
-                <thead>
+              <table id="statTable" class="sortable sortable-theme-bootstrap u-full-width" data-sortable>
+                <thead data-header="true">
                   <tr>
-                    <th>Sonde</th>
-                    <th>min</th>
-                    <th>max</th>
-                    <th>moy</th>
-                    <th>ecart-type</th>
+                    <th data-sort-column="true">Sonde</th>
+                    <th data-sort-column="true">min</th>
+                    <th data-sort-column="true">max</th>
+                    <th data-sort-column="true">moy</th>
+                    <th data-sort-column="true">ecart-type</th>
                   </tr>
                 </thead>
-                <tbody id="tabStat">
+                <tbody data-body="true" id="tabStat">
                 </tbody>
               </table>
             </div>
@@ -176,6 +176,8 @@
             $('#iframe').attr('src','includes/layout/vue3D.php'); 
           }
         });
+        
+        $('.sortable').sortable();
 
         refreshTab();
 
