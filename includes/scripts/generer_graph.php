@@ -76,13 +76,14 @@
                 + '&end=' + Math.round(chart.xAxis[0].getExtremes().max)
                 + '&callback=?', function (data) {
           var spanColorContent = $(".sonde-selected[sonde-id="+id+"] .sonde-color").attr('style');
+          console.log(data[0][1]);
           $("#tabStat").append(
              "<tr>\n"
-            + "<td><span class=\"sonde-selected\" sonde-id=" + id + "><span class=\"sonde-color\" style=\"" + spanColorContent + "\"></span> "+ data[0][0] + "</span>\n"
-            + "  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+            + "<td data-sort-value=\"" + data[0][0] + "\"><span class=\"sonde-selected\" sonde-id=" + id + "><span class=\"sonde-color\" style=\"" + spanColorContent + "\"></span> "+ data[0][0] + "</span>\n"
+            + "  <td data-sort-value='" + (data[0][1] == null ? "-1337" : data[0][1]) + "'>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][2] == null ? "-1337" : data[0][2]) + "'>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][3] == null ? "-1337" : data[0][3]) + "'>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][4] == null ? "-1337" : data[0][4]) + "'>"+data[0][4]+ " " + data[0][5]+"</td>\n"
             + "</tr>\n");
         });
       });
@@ -95,11 +96,11 @@
                 + '&callback=?', function (data) {
           $("#tabStat").append(
              "<tr>\n"
-            + "<td><span class=\"sonde-selected\" sonde-id="+id+"><span class=\"sonde-color\" style=\"background-color: #27636D;\"></span> "+data[0][0]+"</span>\n"
-            + "  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
-            + "  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+            + "<td data-sort-value=\"" + data[0][0] + "\"><span class=\"sonde-selected\" sonde-id="+id+"><span class=\"sonde-color\" style=\"background-color: #27636D;\"></span> "+data[0][0]+"</span>\n"
+            + "  <td data-sort-value='" + (data[0][1] == null ? "-1337" : data[0][1]) + "'>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][2] == null ? "-1337" : data[0][2]) + "'>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][3] == null ? "-1337" : data[0][3]) + "'>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+            + "  <td data-sort-value='" + (data[0][4] == null ? "-1337" : data[0][4]) + "'>"+data[0][4]+ " " + data[0][5]+"</td>\n"
             + "</tr>\n");
 
         });
@@ -115,13 +116,14 @@
               + '&end=' + Math.round(chart.xAxis[0].getExtremes().max)
               + '&callback=?', function (data) {
       var spanColorContent = $(".sonde-selected[sonde-id="+id+"] .sonde-color").attr('style');
+      console.log(data[0][1]);
       $("#tabStat").append(
         "<tr>\n"
-        + "<td><span class=\"sonde-selected\" sonde-id=" + id + "><span class=\"sonde-color\" style=\"" + spanColorContent + "\"></span> "+ data[0][0] + "</span>\n"
-        + "  <td data-value='"+data[0][1]+"''>"+data[0][1]+ " " + data[0][5]+"</td>\n"
-        + "  <td data-value='"+data[0][2]+"''>"+data[0][2]+ " " + data[0][5]+"</td>\n"
-        + "  <td data-value='"+data[0][3]+"''>"+data[0][3]+ " " + data[0][5]+"</td>\n"
-        + "  <td data-value='"+data[0][4]+"''>"+data[0][4]+ " " + data[0][5]+"</td>\n"
+        + "<td data-sort-value=\"" + data[0][0] + "\"><span class=\"sonde-selected\" sonde-id=" + id + "><span class=\"sonde-color\" style=\"" + spanColorContent + "\"></span> "+ data[0][0] + "</span>\n"
+        + "  <td data-sort-value='" + (data[0][1] == null ? "-1337" : data[0][1]) + "'>"+data[0][1]+ " " + data[0][5]+"</td>\n"
+        + "  <td data-sort-value='" + (data[0][2] == null ? "-1337" : data[0][2]) + "'>"+data[0][2]+ " " + data[0][5]+"</td>\n"
+        + "  <td data-sort-value='" + (data[0][3] == null ? "-1337" : data[0][3]) + "'>"+data[0][3]+ " " + data[0][5]+"</td>\n"
+        + "  <td data-sort-value='" + (data[0][4] == null ? "-1337" : data[0][4]) + "'>"+data[0][4]+ " " + data[0][5]+"</td>\n"
         + "</tr>\n");
 
     });
