@@ -253,7 +253,15 @@ var oppppt = {
                         afterSetExtremes : afterSetExtremes
                     },
                     ordinal : false,
+                    title: {
+                      text: 'Dates/Temps'
+                    },
                     minRange: 3600 * 1000 // one hour
+                },
+                yAxis : {
+                  title: {
+                    text: 'Temperatures'
+                  }
                 }
             };
 
