@@ -25,6 +25,7 @@ function getDateFin() {
 function addSerie(id, name, couleur) {
   addCaptTab(id);
   var chart = $('#chart').highcharts();
+  //chart.options.exporting.itemDelimiter = ";"
 
   chart.showLoading('Chargement des données...');
 
@@ -188,7 +189,9 @@ Highcharts.setOptions({
     downloadSVG: "Télécharger en SVG",
     printChart: "Imprimer le graphique",
     loading: "Chargement",
-    noData: "Aucune donnée"
+    noData: "Aucune donnée",
+    downloadCSV: "Télecharger en CSV",
+    downloadXLS: "Télécharger en XLS"
   }
 });
 
@@ -198,6 +201,7 @@ var oppppt = {
                     zoomType: 'x'
                 },
                 navigator : {
+                    includeInCSVExport: false,
                     enabled: true,
                     adaptToUpdatedData: false,
                     xAxis: {

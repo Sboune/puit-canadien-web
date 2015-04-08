@@ -21,6 +21,7 @@
     <script src="assets/js/datepicker.fr.js"></script>
     <script src="assets/js/utils.js"></script>
     <script src="assets/js/jquery.sortable.js" ></script>
+    <script src="assets/js/export-csv.js"></script>
 
   </head>
   <body>
